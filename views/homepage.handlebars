@@ -1,3 +1,4 @@
+{{{_sections.style}}}
 <div class='cover text-center'>
   <img id='studying-img' src='./images/person-studying.png' />
   <img id='studying-logo' src='./images/studdy-buddy-title.png' /></div>
@@ -48,6 +49,10 @@
     </section>
   </article>
 {{/if}}
+
+{{#section 'style'}}
+  <link rel='stylesheet' href='/css/homepage.css' />
+{{/section}}
 
 {{#if loggedIn}}
   {{#section 'script'}}

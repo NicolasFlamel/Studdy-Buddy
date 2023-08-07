@@ -1,0 +1,63 @@
+/* login */
+.signup {
+  margin-top: 50px;
+  border-radius: 5px;
+  background-color: var(--boxes);
+  padding: 50px;
+  max-width: 450px;
+}
+
+#create-account-window {
+  margin-bottom: 20px;
+}
+
+.username {
+  margin-bottom: 10px;
+}
+
+.password {
+  margin-bottom: 10px;
+}
+
+#signup-text {
+  color: white;
+  font-style: italic;
+  font-size: 20px;
+}
+
+.signup-images {
+  margin-top: 20px;
+}
+
+#create-login {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  border: var(--border-styles);
+  margin: auto;
+  max-width: 1000px;
+}
+
+@media screen and (max-width: 500px) {
+  .btn-grad {
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 1005px) {
+  #create-login {
+    margin: 5px;
+  }
+}
+
+@media screen and (min-width: 500px) {
+  .btn-grad {
+    padding: 15px 30px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .btn-grad {
+    padding: 15px 45px;
+  }
+}

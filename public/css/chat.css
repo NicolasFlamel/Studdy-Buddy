@@ -1,0 +1,73 @@
+/* Chat css */
+#buddy-window {
+  margin-bottom: 5px;
+  margin-top: 20px;
+  background-color: var(--boxes);
+  border-radius: 5px;
+}
+
+#chat-window {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding: 0;
+  height: 500px;
+  background-color: var(--boxes);
+}
+
+#chat-window .messages {
+  width: 100%;
+  flex: 1;
+  border-bottom: solid var(--secondary-color);
+  overflow: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#chat-window .messages li {
+  padding: 0.5rem;
+}
+
+#chat-window form {
+  flex: 1;
+  flex-grow: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  padding: 0.25rem;
+}
+
+#chat-window form input {
+  border: 0;
+  padding: 0.5rem;
+  width: 100%;
+  outline: 0;
+  margin-right: 0.5rem;
+  border-radius: 0.25rem;
+  background: white;
+}
+
+#chat-window form button {
+  width: 6rem;
+  background-color: var(--tertiary-color);
+  color: white;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  text-transform: uppercase;
+}
+
+#chat-window form button:hover {
+  background-color: var(--pencil-pink);
+}
+
+#chat-window .messages li.self {
+  background: white;
+}
+
+#chat-window .messages li.buddy {
+  background: var(--pencil-pink);
+}

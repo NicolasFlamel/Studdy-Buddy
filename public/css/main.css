@@ -1,5 +1,3 @@
-/* Style Idea: Yellow background, pink top bar, and silver nav bar to look like a #2 pencil. It would also make the blue iridescent buttons pop */
-
 :root {
   --primary-color: #06283d;
   --secondary-color: #c0c0c0;
@@ -36,29 +34,43 @@ header {
   border-bottom: var(--border-styles);
 }
 
+.nav img {
+  width: 100%;
+  height: auto;
+  max-width: 713px;
+}
+
 #nav-btn {
   display: flex;
   flex-wrap: wrap;
   color: white;
+  margin-left: auto;
 }
 
-#nav-btn a {
-  display: block;
-  width: 115px;
-  height: 25px;
+#nav-btn > * {
+  margin: auto 5px;
+}
+
+#nav-btn .btn,
+a {
+  text-decoration: none;
+  color: white;
   background: #4e9caf;
-  padding: 10px;
   text-align: center;
   border-radius: 5px;
-  color: white;
   font-weight: bold;
-  line-height: 25px;
+}
+
+#nav-btn .btn:hover,
+a:hover {
+  color: var(--tertiary-color);
 }
 
 #nav-logo {
   max-width: 300px;
 }
 
+/* Footer */
 .social-links {
   display: flex;
   justify-content: right;
@@ -86,7 +98,6 @@ header {
 
 .btn-grad:hover {
   background-position: right center;
-  /* change the direction of the change here */
   color: #fff;
   text-decoration: none;
 }

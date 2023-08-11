@@ -1,22 +1,32 @@
-/* login */
-.signup {
+/* access */
+h2,
+label {
+  color: var(--tertiary-color);
+  text-shadow: 1px 1px black;
+}
+
+form {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: max-content max-content;
+  gap: 10px;
+}
+
+form label {
+  text-align: right;
+}
+
+form button,
+form h2 {
+  grid-column: 1 / span 2;
+}
+
+.access {
+  padding: 5px;
   margin-top: 50px;
   border-radius: 5px;
   background-color: var(--boxes);
-  padding: 50px;
-  max-width: 450px;
-}
-
-#create-account-window {
-  margin-bottom: 20px;
-}
-
-.username {
-  margin-bottom: 10px;
-}
-
-.password {
-  margin-bottom: 10px;
+  max-width: 550px;
 }
 
 #signup-text {
@@ -27,6 +37,12 @@
 
 .signup-images {
   margin-top: 20px;
+}
+
+.signup-images img {
+  width: 100%;
+  height: auto;
+  max-width: 713px;
 }
 
 #create-login {

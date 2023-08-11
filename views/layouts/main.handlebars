@@ -19,11 +19,11 @@
     <header>
       <nav class='nav'>
         <img id='nav-logo' src='./images/nav-logo.png' />
-        <section id='nav-btn text-center'>
-          <a class='btn' href='/'>Home</a>
+        <section id='nav-btn'>
+          <a href='/'><button class='btn'>Home</button></a>
           {{#if loggedIn}}
-            <a class='btn' href='/profile'>My Profile</a>
-            <a class='btn' href='/assessment'>Update assessments</a>
+            <a href='/profile'><button class='btn'>My Profile</button></a>
+            <a href='/assessment'><button class='btn'>Update assessments</button></a>
             <button id='logout-btn' class='btn'>Logout</button>
           {{else}}
             <a class='btn' href='/login'>Login Page</a>

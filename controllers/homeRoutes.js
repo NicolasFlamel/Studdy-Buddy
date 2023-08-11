@@ -89,8 +89,21 @@ router.get('/login', (req, res) => {
   res.render('login');
 });
 
-router.get('/profile', withAuth, (req, res) => {
-  res.render('profile', { loggedIn: req.session.loggedIn });
+router.get('/profile', withAuth, async (req, res) => {
+  const { userId } = req.session;
+
+  try {
+    const userData = await User.findByPk(userId, {
+      attributes: { exclude: 'password' },
+      include: { model: Score, attributes: { exclude: ['id', 'userId'] } },
+      nest: true,
+      raw: true,
+    });
+
+    res.render('profile', { loggedIn: req.session.loggedIn, userData });
+  } catch (err) {
+    res.status(500).json(err)
+  }
 });
 
 router.get('/user/:username', async (req, res) => {

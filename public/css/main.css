@@ -36,6 +36,12 @@ header {
   border-bottom: var(--border-styles);
 }
 
+.nav img {
+  width: 100%;
+  height: auto;
+  max-width: 713px;
+}
+
 #nav-btn {
   display: flex;
   flex-wrap: wrap;

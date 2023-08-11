@@ -1,14 +1,3 @@
-{{#section 'style'}}
-  <link
-    rel='stylesheet'
-    href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css'
-  />
-  <link
-    rel='stylesheet'
-    href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'
-  />
-{{/section}}
-
 <article class='container'>
   <section class='row buddy-card text-center'>
     <h2>{{userData.username}}'s Profile</h2>
@@ -75,6 +64,20 @@
   </article>
 </article>
 
+{{! style links }}
+{{#section 'style'}}
+  <link
+    rel='stylesheet'
+    href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css'
+  />
+  <link
+    rel='stylesheet'
+    href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'
+  />
+  <link rel='stylesheet' href='/css/profile.css' />
+{{/section}}
+
+{{! script links }}
 {{#section 'script'}}
   <script
     src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js'

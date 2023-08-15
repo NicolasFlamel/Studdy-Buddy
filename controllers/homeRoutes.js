@@ -119,18 +119,31 @@ router.get('/profile', withAuth, async (req, res) => {
 router.get('/user/:username', async (req, res) => {
   const { loggedIn } = req.session;
   const { username } = req.params;
-  const userData = await User.findOne({ where: { username }, raw: true });
-  const scheduleData = await Schedule.findAll({
-    where: { userId: userData.id },
-    order: [['date', 'ASC']],
-    raw: true,
-  });
+  try {
+    const userData = await User.findOne({ where: { username }, raw: true });
+    
+    if(!userData) throw 'User not found'
 
-  res.render('profile', {
-    loggedIn,
-    userData,
-    scheduleData,
-    ownProfile: false,
-  });
+    const scheduleData = await Schedule.findAll({
+      where: { userId: userData.id },
+      order: [['date', 'ASC']],
+      raw: true,
+    });
+
+    res.render('profile', {
+      loggedIn,
+      userData,
+      scheduleData,
+      ownProfile: false,
+    });
+  } catch (err) {
+    res.status(500).json(err)
+  }
+
 });
+
+router.get('/*', (req, res) => {
+  res.status(404).send('404 - Page not found');
+});
+
 module.exports = router;

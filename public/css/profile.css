@@ -1,4 +1,11 @@
 /* Profile */
+h2,
+h3,
+p {
+  color: var(--tertiary-color);
+  text-shadow: 1px 1px 1px rgb(0, 0, 0);
+}
+
 .schedule {
   display: flex;
   flex-wrap: wrap;

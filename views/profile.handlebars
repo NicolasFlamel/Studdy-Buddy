@@ -94,5 +94,7 @@
     crossorigin='anonymous'
     referrerpolicy='no-referrer'
   ></script>
-  <script src='/js/profile.js'></script>
+  {{#if ownProfile}}
+    <script src='/js/profile.js'></script>
+  {{/if}}
 {{/section}}

@@ -54,7 +54,8 @@ const deleteSchedule = async (event) => {
 };
 
 scheduleEl.addEventListener('submit', grabDate);
+scheduleArr.forEach((schedule) =>
+  schedule.querySelector('button').addEventListener('click', deleteSchedule),
+);
+
 scheduleEl.querySelector('#date').value = DateTime.now().toFormat('LL/dd/yyyy');
-scheduleArr.forEach((schedule) => {
-  schedule.querySelector('button').addEventListener('click', deleteSchedule);
-});

@@ -119,10 +119,11 @@ router.get('/profile', withAuth, async (req, res) => {
 router.get('/user/:username', async (req, res) => {
   const { loggedIn } = req.session;
   const { username } = req.params;
+
   try {
     const userData = await User.findOne({ where: { username }, raw: true });
-    
-    if(!userData) throw 'User not found'
+
+    if (!userData) throw 'User not found';
 
     const scheduleData = await Schedule.findAll({
       where: { userId: userData.id },
@@ -137,9 +138,8 @@ router.get('/user/:username', async (req, res) => {
       ownProfile: false,
     });
   } catch (err) {
-    res.status(500).json(err)
+    res.status(500).json(err);
   }
-
 });
 
 router.get('/*', (req, res) => {

@@ -1,7 +1,7 @@
 const User = require('./User');
 const Score = require('./Score');
 const Chat = require('./Chat');
-const Availability = require('./availability');
+const Schedule = require('./Schedule');
 
 User.hasOne(Score, {
   foreignKey: 'userId',
@@ -12,7 +12,7 @@ Score.belongsTo(User, {
   foreignKey: 'userId',
 });
 
-Availability.belongsTo(User, {
+Schedule.belongsTo(User, {
   foreignKey: 'userId',
 });
 
@@ -28,4 +28,10 @@ Chat.belongsTo(User, {
   onUpdate: 'CASCADE',
 });
 
-module.exports = { User, Score, Chat, Availability };
+User.hasMany(Schedule, {
+  foreignKey: 'userId',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE',
+});
+
+module.exports = { User, Score, Chat, Schedule };

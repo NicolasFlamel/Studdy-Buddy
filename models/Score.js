@@ -52,7 +52,7 @@ Score.init(
     freezeTableName: true,
     underscored: true,
     modelName: 'score',
-  }
+  },
 );
 
 module.exports = Score;

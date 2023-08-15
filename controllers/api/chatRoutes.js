@@ -12,7 +12,7 @@ router.put('/subject', withAuth, async (req, res) => {
     const scoreData = await Score.findOne({ where: { userId }, raw: true });
     const response = await Chat.update(
       { subject, subjectScore: scoreData[subject] },
-      { where: { userId } }
+      { where: { userId } },
     );
 
     res.json(response);

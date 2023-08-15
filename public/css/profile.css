@@ -1,5 +1,25 @@
 /* Profile */
-.Nameheader {
-  justify-content: right;
-  width: 50rem;
+h2,
+h3,
+p {
+  color: var(--tertiary-color);
+  text-shadow: 1px 1px 1px rgb(0, 0, 0);
+}
+
+.schedule {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.schedule li {
+  width: 40%;
+  list-style: none;
+}
+
+.buddy-card {
+  margin: 20px;
+  padding: 5px;
+  background: var(--boxes);
+  border-radius: 5px;
 }

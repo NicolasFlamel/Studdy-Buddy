@@ -10,20 +10,19 @@
       integrity='sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65'
       crossorigin='anonymous'
     />
-    <link rel='stylesheet' href='/css/style.css' />
-    <link rel='icon' href='./images/study-icon.png' />
+    <link rel='stylesheet' href='/css/main.css' />
     {{{_sections.style}}}
   </head>
 
   <body>
     <header>
       <nav class='nav'>
-        <img id='nav-logo' src='./images/nav-logo.png' />
-        <section id='nav-btn text-center'>
-          <a class='btn' href='/'>Home</a>
+        <img id='nav-logo' src='/images/nav-logo.png' />
+        <section id='nav-btn'>
+          <a href='/'><button class='btn'>Home</button></a>
           {{#if loggedIn}}
-            <a class='btn' href='/profile'>My Profile</a>
-            <a class='btn' href='/assessment'>Update assessments</a>
+            <a href='/profile'><button class='btn'>My Profile</button></a>
+            <a href='/assessment'><button class='btn'>Update assessments</button></a>
             <button id='logout-btn' class='btn'>Logout</button>
           {{else}}
             <a class='btn' href='/login'>Login Page</a>
@@ -40,7 +39,7 @@
       <div class='container p-4 pb-0'>
 
         <!-- Section: Social media -->
-        <section class='mb-4'>
+        <section class='social-links'>
           <!-- Facebook -->
           <a
             class='btn text-white btn-floating m-1'

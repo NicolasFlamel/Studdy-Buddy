@@ -1,0 +1,103 @@
+:root {
+  --primary-color: #06283d;
+  --secondary-color: #c0c0c0;
+  --tertiary-color: #47b5ff;
+  --quaternary-color: #dff6ff;
+  --pencil-yellow: #edb560;
+  --pencil-pink: #f4aeb6;
+  --pencil-silver: #e2e2e3;
+  --border-styles: 4.5px solid var(--secondary-color);
+  --bs-card-bg: #06283d;
+  --boxes: rgba(255, 248, 225, 0.363);
+}
+
+h1,
+h2 {
+  font-weight: 100;
+  color: black;
+}
+
+body {
+  font-family: 'Verdana', 'Trebuchet MS', sans-serif;
+  background: var(--pencil-yellow);
+}
+
+header {
+  border-radius: 5px;
+}
+
+/*Navigation bar styling*/
+.nav {
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: var(--pencil-pink);
+  border-bottom: var(--border-styles);
+}
+
+.nav img {
+  width: 100%;
+  height: auto;
+  max-width: 713px;
+}
+
+#nav-btn {
+  display: flex;
+  flex-wrap: wrap;
+  color: white;
+  margin-left: auto;
+}
+
+#nav-btn > * {
+  margin: auto 5px;
+}
+
+#nav-btn .btn,
+a {
+  text-decoration: none;
+  color: white;
+  background: #4e9caf;
+  text-align: center;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+#nav-btn .btn:hover,
+a:hover {
+  color: var(--tertiary-color);
+}
+
+#nav-logo {
+  max-width: 300px;
+}
+
+/* Footer */
+.social-links {
+  display: flex;
+  justify-content: right;
+  width: 100%;
+}
+
+/*Button styling*/
+.btn-grad {
+  background-image: linear-gradient(
+    to right,
+    #4cb8c4 0%,
+    #3cd3ad 51%,
+    #4cb8c4 100%
+  );
+  margin: 10px;
+  padding: 15px 45px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+}
+
+.btn-grad:hover {
+  background-position: right center;
+  color: #fff;
+  text-decoration: none;
+}

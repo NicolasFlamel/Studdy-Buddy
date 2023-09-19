@@ -1,0 +1,79 @@
+/* access */
+h2,
+label {
+  color: var(--tertiary-color);
+  text-shadow: 1px 1px black;
+}
+
+form {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: max-content max-content;
+  gap: 10px;
+}
+
+form label {
+  text-align: right;
+}
+
+form button,
+form h2 {
+  grid-column: 1 / span 2;
+}
+
+.access {
+  padding: 5px;
+  margin-top: 50px;
+  border-radius: 5px;
+  background-color: var(--boxes);
+  max-width: 550px;
+}
+
+#signup-text {
+  color: white;
+  font-style: italic;
+  font-size: 20px;
+}
+
+.signup-images {
+  margin-top: 20px;
+}
+
+.signup-images img {
+  width: 100%;
+  height: auto;
+  max-width: 713px;
+}
+
+#create-login {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  border: var(--border-styles);
+  margin: auto;
+  max-width: 1000px;
+}
+
+@media screen and (max-width: 500px) {
+  .btn-grad {
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 1005px) {
+  #create-login {
+    margin: 5px;
+  }
+}
+
+@media screen and (min-width: 500px) {
+  .btn-grad {
+    padding: 15px 30px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .btn-grad {
+    padding: 15px 45px;
+  }
+}

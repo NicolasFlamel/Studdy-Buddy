@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const withAuth = require('../utils/auth');
 const { searchChat } = require('../utils/query');
-const { User, Score, Chat, Availability } = require('../models');
+const { User, Score, Chat, Schedule } = require('../models');
 
 router.get('/', async (req, res) => {
   const { loggedIn, userId } = req.session;
@@ -89,13 +89,61 @@ router.get('/login', (req, res) => {
   res.render('login');
 });
 
-router.get('/profile', withAuth, (req, res) => {
-  res.render('profile', { loggedIn: req.session.loggedIn });
+router.get('/profile', withAuth, async (req, res) => {
+  const { loggedIn, userId } = req.session;
+
+  try {
+    const userData = await User.findByPk(userId, {
+      attributes: { exclude: 'password' },
+      include: { model: Score, attributes: { exclude: ['id', 'userId'] } },
+      nest: true,
+      raw: true,
+    });
+    const scheduleData = await Schedule.findAll({
+      where: { userId },
+      order: [['date', 'ASC']],
+      raw: true,
+    });
+
+    res.render('profile', {
+      loggedIn,
+      userData,
+      scheduleData,
+      ownProfile: true,
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 router.get('/user/:username', async (req, res) => {
+  const { loggedIn } = req.session;
   const { username } = req.params;
-  const userData = await User.findOne({ where: { username } });
-  res.render('profile', { userData });
+
+  try {
+    const userData = await User.findOne({ where: { username }, raw: true });
+
+    if (!userData) throw 'User not found';
+
+    const scheduleData = await Schedule.findAll({
+      where: { userId: userData.id },
+      order: [['date', 'ASC']],
+      raw: true,
+    });
+
+    res.render('profile', {
+      loggedIn,
+      userData,
+      scheduleData,
+      ownProfile: false,
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
+
+router.get('/*', (req, res) => {
+  res.status(404).send('404 - Page not found');
+});
+
 module.exports = router;

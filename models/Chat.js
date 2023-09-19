@@ -48,7 +48,7 @@ Chat.init(
     freezeTableName: true,
     underscored: true,
     modelName: 'chat',
-  }
+  },
 );
 
 module.exports = Chat;

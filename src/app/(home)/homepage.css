@@ -1,0 +1,42 @@
+/*Homepage styling*/
+.cover {
+  flex-direction: row;
+  border-radius: 5px;
+  margin-top: 20px;
+  margin-right: 20px;
+  margin-left: 20px;
+  box-shadow: 0px 0px 10px 1px;
+  background-color: var(--boxes);
+}
+
+#welcome {
+  color: white;
+  font-weight: 10px;
+  font-size: 100px;
+}
+
+#homepage-text {
+  font-size: 17px;
+  color: white;
+  padding: 30px;
+  line-height: 35px;
+}
+
+.main {
+  margin-top: 20px;
+}
+
+#join-room table {
+  border: black;
+  background-color: var(--boxes);
+}
+
+#chat-options {
+  flex-wrap: wrap;
+}
+
+@media screen and (max-width: 500px) {
+  #welcome {
+    font-size: 45px;
+  }
+}

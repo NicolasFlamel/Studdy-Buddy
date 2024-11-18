@@ -1,0 +1,30 @@
+/*Assessment Styling*/
+.score-card {
+  justify-content: center;
+  text-align: center;
+  background-color: var(--boxes);
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 600px;
+}
+
+#update-btn {
+  margin-top: 10px;
+}
+
+.assessment-title {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.form-check {
+  display: block;
+  min-height: 1.5rem;
+  padding-left: 1.5em;
+  margin-bottom: 0.125rem;
+}
+
+.form-check-inline {
+  display: inline-block;
+  margin-right: 1rem;
+}

@@ -1,4 +1,4 @@
-import './assessment.css';
+import './styles.css';
 
 const AssessmentPage = () => {
   return (

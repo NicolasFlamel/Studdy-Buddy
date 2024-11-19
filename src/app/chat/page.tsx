@@ -1,4 +1,4 @@
-import './chat.css';
+import './styles.css';
 import Link from 'next/link';
 
 const ChatPage = () => {

@@ -1,5 +1,6 @@
 import type { Config } from 'tailwindcss';
 import { nextui } from '@nextui-org/react';
+import { nextUIConfig } from './tailwind.nextUI';
 
 const config: Config = {
   content: [
@@ -13,13 +14,10 @@ const config: Config = {
       gridTemplateRows: {
         layout: 'max-content 1fr max-content',
       },
-      colors: {
-        background: 'var(--background)',
-        foreground: 'var(--foreground)',
-      },
     },
   },
   darkMode: 'class',
-  plugins: [nextui()],
+  plugins: [nextui(nextUIConfig)],
 };
+
 export default config;

@@ -12,6 +12,14 @@ export const getUser = async (username: string) => {
   return user;
 };
 
+export const getUserWithScores = async (username: string) => {
+  const user = await db.query.usersTable.findFirst({
+    where: (user, { eq }) => eq(user.username, username),
+    with: { userScores: true },
+  });
+  return user;
+};
+
 export const getUsers = async () => {
   const users = await db.query.usersTable.findMany();
   return users;

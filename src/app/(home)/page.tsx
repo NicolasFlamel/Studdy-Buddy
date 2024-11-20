@@ -6,6 +6,7 @@ import ChatOptions from 'components/chat-options';
 const Home = async () => {
   const session = await auth();
   const username = session?.user?.name;
+  const scores = session?.user.scores;
 
   return (
     <>
@@ -33,46 +34,7 @@ const Home = async () => {
           }
         </p>
       </section>
-      {/* {{#if loggedIn}} */}
-      <article
-        id="chat-options"
-        className="container d-flex justify-content-evenly"
-      >
-        <section id="create-room" className="text-center">
-          <select className="form-select" aria-label="select subject">
-            <option value="vanillaJs">Vanilla JS</option>
-            <option value="mySql">mySQL</option>
-            <option value="nodeJs">Node.JS</option>
-            <option value="express">Express</option>
-            <option value="oop">OOP</option>
-          </select>
-          <button className="btn btn-grad chat-btn" data-option="find">
-            Find a buddy
-          </button>
-        </section>
-        <section id="join-room">
-          <table className="table table-striped">
-            <thead>
-              <tr>
-                <th scope="col">Subject</th>
-                <th scope="col">Score</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* {{#each userData.score}}
-              <tr>
-                <th scope='row'>{{formatSubject @key}}</th>
-                <td>{{this}}</td>
-              </tr>
-            {{/each}} */}
-            </tbody>
-          </table>
-          <button className="btn btn-grad chat-btn" data-option="help">
-            Help a buddy
-          </button>
-        </section>
-      </article>
-      {/* {{/if}} */}
+      {scores ? <ChatOptions scores={scores} /> : null}
     </>
   );
 };

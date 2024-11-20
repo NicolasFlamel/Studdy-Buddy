@@ -101,6 +101,10 @@ header {
   margin: auto 5px;
 }
 
+#nav-btn .btn {
+  padding: 0.375rem 0.75rem;
+}
+
 #nav-btn .btn,
 a {
   text-decoration: none;

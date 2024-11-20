@@ -16,7 +16,7 @@ export const usersTable = pgTable(
     id: uuid().primaryKey().defaultRandom(),
     username: varchar({ length: 255 }).notNull().unique(),
     password: varchar({ length: 225 }).notNull(),
-    isActive: boolean().default(false),
+    isActive: boolean().notNull().default(false),
   },
   (table) => [uniqueIndex('username_idx').on(table.username)],
 );

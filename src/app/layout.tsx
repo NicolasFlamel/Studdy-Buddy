@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <NavBar />
-        <main>{children}</main>
+        <main className="max-w-screen-xl justify-self-center">{children}</main>
         <Footer />
       </body>
     </html>

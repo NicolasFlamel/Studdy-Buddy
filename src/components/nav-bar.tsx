@@ -6,8 +6,8 @@ const NavBar = async () => {
   const session = await auth();
 
   return (
-    <header>
-      <nav className="nav">
+    <header className="flex w-full nav justify-center">
+      <nav className="flex max-w-screen-xl w-full">
         <Image
           id="nav-logo"
           src="/images/nav-logo.png"
@@ -19,11 +19,6 @@ const NavBar = async () => {
           <Link href="/">
             <button className="btn">Home</button>
           </Link>
-          {/* {{#if loggedIn}}
-        <a href='/profile'><button className='btn'>My Profile</button></a>
-        <a href='/assessment'><button className='btn'>Update assessments</button></a>
-        <button id='logout-btn' className='btn'>Logout</button>
-      {{else}} */}
           {!session?.user ? (
             <Link className="btn" href="/login">
               Login Page
@@ -46,7 +41,6 @@ const NavBar = async () => {
               </form>
             </>
           )}
-          {/* {{/if}} */}
         </section>
       </nav>
     </header>

@@ -78,8 +78,6 @@ header {
 
 /*Navigation bar styling*/
 .nav {
-  flex-direction: row;
-  justify-content: space-between;
   background-color: var(--pencil-pink);
   border-bottom: var(--border-styles);
 }

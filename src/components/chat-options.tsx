@@ -30,10 +30,7 @@ const ChatOptions = async ({ scores }: ChatOptionsProps) => {
   };
 
   return (
-    <article
-      id="chat-options"
-      className="container d-flex justify-content-evenly"
-    >
+    <article id="chat-options" className="container flex justify-evenly">
       <section id="create-room" className="text-center">
         <select className="form-select" aria-label="select subject">
           <option value="vanillaJs">Vanilla JS</option>

@@ -1,7 +1,12 @@
+import { auth, signOut } from 'auth';
 import Image from 'next/image';
 import Link from 'next/link';
 
-const NavBar = () => {
+const NavBar = async () => {
+  const session = await auth();
+
+  console.log(session);
+
   return (
     <header>
       <nav className="nav">
@@ -21,9 +26,20 @@ const NavBar = () => {
         <a href='/assessment'><button className='btn'>Update assessments</button></a>
         <button id='logout-btn' className='btn'>Logout</button>
       {{else}} */}
-          <Link className="btn" href="/login">
-            Login Page
-          </Link>
+          {!session?.user ? (
+            <Link className="btn" href="/login">
+              Login Page
+            </Link>
+          ) : (
+            <form
+              action={async () => {
+                'use server';
+                await signOut();
+              }}
+            >
+              <button className="btn">Signout</button>
+            </form>
+          )}
           {/* {{/if}} */}
         </section>
       </nav>

@@ -14,7 +14,7 @@ export default function LoginForm() {
     <form action={formAction}>
       <h2 className="container text-center">Login</h2>
       <label>Username:</label>
-      <input id="username" type="text" name="name" className="username" />
+      <input id="username" type="text" name="username" className="username" />
       <label>Password:</label>
       <input
         id="password"

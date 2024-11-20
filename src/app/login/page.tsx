@@ -1,4 +1,5 @@
 import './styles.css';
+import LoginForm from 'components/login-form';
 
 const LoginPage = () => {
   return (
@@ -28,22 +29,7 @@ const LoginPage = () => {
         </form>
 
         <hr />
-
-        <form>
-          <h2 className="container text-center">Login</h2>
-          <label>Username:</label>
-          <input id="username" type="text" name="name" className="username" />
-          <label>Password:</label>
-          <input
-            id="password"
-            type="password"
-            name="password"
-            className="password"
-          />
-          <button id="homepage-login" className="btn btn-grad">
-            Login
-          </button>
-        </form>
+        <LoginForm />
       </div>
     </>
   );

@@ -1,4 +1,5 @@
 import '@/globals.css';
+import { Providers } from './providers';
 import Footer from 'components/footer';
 import NavBar from 'components/nav-bar';
 import type { Metadata } from 'next';
@@ -18,11 +19,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="light">
       <body>
-        <NavBar />
-        <main className="max-w-screen-xl justify-self-center">{children}</main>
-        <Footer />
+        <Providers className="grid grid-rows-layout gap-4 min-w-80 min-h-screen">
+          <NavBar />
+          <main className="max-w-screen-xl justify-self-center">
+            {children}
+          </main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

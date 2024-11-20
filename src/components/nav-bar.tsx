@@ -29,14 +29,22 @@ const NavBar = async () => {
               Login Page
             </Link>
           ) : (
-            <form
-              action={async () => {
-                'use server';
-                await signOut();
-              }}
-            >
-              <button className="btn">Signout</button>
-            </form>
+            <>
+              <Link href="/profile">
+                <button className="btn">My Profile</button>
+              </Link>
+              <Link className="btn" href="/assessment">
+                Update assessments
+              </Link>
+              <form
+                action={async () => {
+                  'use server';
+                  await signOut();
+                }}
+              >
+                <button className="btn">Signout</button>
+              </form>
+            </>
           )}
           {/* {{/if}} */}
         </section>

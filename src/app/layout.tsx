@@ -1,4 +1,5 @@
 import '@/globals.css';
+import Footer from 'components/footer';
 import NavBar from 'components/nav-bar';
 import type { Metadata } from 'next';
 
@@ -6,6 +7,10 @@ export const metadata: Metadata = {
   title: { template: '$s | Studdy Buddy', default: 'Studdy Buddy' },
   description: 'Studdy Buddy App',
 };
+
+import { config } from '@fortawesome/fontawesome-svg-core';
+import '@fortawesome/fontawesome-svg-core/styles.css';
+config.autoAddCss = false;
 
 export default function RootLayout({
   children,
@@ -16,7 +21,8 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <NavBar />
-        {children}
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );

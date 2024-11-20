@@ -33,15 +33,6 @@ body {
   --boxes: rgba(255, 248, 225, 0.363);
 }
 
-body {
-  min-width: 320px;
-  min-height: 100vh;
-
-  display: grid;
-  grid-template-rows: max-content 1fr max-content;
-  gap: 1rem;
-}
-
 header {
   grid-area: 1;
 }

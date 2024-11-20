@@ -22,7 +22,7 @@ export default function RootLayout({
     <html lang="en" className="light">
       <body>
         <Providers className="grid grid-rows-layout gap-4 min-w-80 min-h-screen">
-          <NavBar />
+          <NavBar className="nav" />
           <main className="max-w-screen-xl justify-self-center">
             {children}
           </main>

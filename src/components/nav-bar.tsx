@@ -1,12 +1,13 @@
 import { auth, signOut } from 'auth';
 import Image from 'next/image';
 import Link from 'next/link';
+import { HTMLAttributes } from 'react';
 
-const NavBar = async () => {
+const NavBar = async ({ className = '' }: HTMLAttributes<HTMLElement>) => {
   const session = await auth();
 
   return (
-    <header className="flex w-full nav justify-center">
+    <header className={className + ' flex w-full justify-center'}>
       <nav className="flex max-w-screen-xl w-full">
         <Image
           id="nav-logo"

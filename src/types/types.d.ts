@@ -19,7 +19,7 @@ declare module 'next-auth' {
     } & DefaultSession['user'];
   }
   interface User {
-    scores?: ScoresTableSelect;
+    scores?: ScoresTableSelect | null;
   }
 }
 

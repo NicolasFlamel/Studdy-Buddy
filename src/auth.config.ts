@@ -1,4 +1,5 @@
-import type { NextAuthConfig } from 'next-auth';
+import type { NextAuthConfig, Session } from 'next-auth';
+import { JWT } from 'next-auth/jwt';
 
 const protectedRoutes = ['/assessment', '/profile', '/chat'];
 // const publicRoutes = ['/', '/login'];
@@ -8,6 +9,22 @@ export const authConfig = {
     signIn: '/login',
   },
   callbacks: {
+    async jwt({ token, user }) {
+      if (!user?.scores) return token;
+
+      const newToken: JWT = { ...token, scores: user.scores };
+
+      return newToken;
+    },
+    async session({ session, token }) {
+      if (!session.user || !token.scores) return session;
+
+      const newSession: Session = {
+        ...session,
+        user: { ...session.user, scores: token.scores },
+      };
+      return newSession;
+    },
     async authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
       const path = nextUrl.pathname;

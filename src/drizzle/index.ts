@@ -16,3 +16,10 @@ export const getUsers = async () => {
   const users = await db.query.usersTable.findMany();
   return users;
 };
+
+export const getUserScores = async (userId: string) => {
+  const scores = await db.query.scoresTable.findFirst({
+    where: (score, { eq }) => eq(score.userId, userId),
+  });
+  return scores;
+};

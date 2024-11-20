@@ -60,6 +60,12 @@ export const chatsTable = pgTable(
 export const userRelations = relations(usersTable, ({ one }) => ({
   userScores: one(scoresTable),
 }));
+export const scoresRelations = relations(scoresTable, ({ one }) => ({
+  scoresUser: one(usersTable, {
+    fields: [scoresTable.userId],
+    references: [usersTable.id],
+  }),
+}));
 
 // Type Exports
 

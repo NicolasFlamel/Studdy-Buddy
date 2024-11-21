@@ -1,4 +1,4 @@
-import { AnchorHTMLAttributes } from 'react';
+import { AnchorHTMLAttributes, HTMLAttributes } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons/faTwitter';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons/faFacebook';
@@ -12,7 +12,7 @@ interface SocialLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
 const SocialLink = ({ backgroundColor, href, children }: SocialLinkProps) => {
   return (
     <a
-      className={'btn text-white btn-floating m-1'}
+      className={'  text-white  -floating m-1'}
       style={{ backgroundColor }}
       href={href}
       role="button"
@@ -22,11 +22,11 @@ const SocialLink = ({ backgroundColor, href, children }: SocialLinkProps) => {
   );
 };
 
-const Footer = () => {
+const Footer = async ({ className = '' }: HTMLAttributes<HTMLElement>) => {
   return (
-    <footer className="social-footer">
-      <div className="container p-4 pb-0">
-        <section className="social-links">
+    <footer className={className + ' flex w-full justify-center'}>
+      <div className="max-w-screen-xl w-full p-4">
+        <section className="flex justify-end w">
           {/* <!-- Facebook --> */}
           <SocialLink
             backgroundColor="#3b5998"

@@ -1,7 +1,8 @@
+import { HTMLAttributes } from 'react';
 import { auth, signOut } from 'auth';
 import Image from 'next/image';
-import Link from 'next/link';
-import { HTMLAttributes } from 'react';
+import { Button } from '@nextui-org/button';
+import { Link } from '@nextui-org/link';
 
 const NavBar = async ({ className = '' }: HTMLAttributes<HTMLElement>) => {
   const session = await auth();
@@ -16,29 +17,21 @@ const NavBar = async ({ className = '' }: HTMLAttributes<HTMLElement>) => {
           width={713}
           height={55}
         />
-        <section id="nav-btn">
-          <Link href="/">
-            <button className="btn">Home</button>
-          </Link>
+        <section id="nav- ">
+          <Link href="/">Home</Link>
           {!session?.user ? (
-            <Link className="btn" href="/login">
-              Login Page
-            </Link>
+            <Link href="/login">Login Page</Link>
           ) : (
             <>
-              <Link href="/profile">
-                <button className="btn">My Profile</button>
-              </Link>
-              <Link className="btn" href="/assessment">
-                Update assessments
-              </Link>
+              <Link href="/profile">My Profile</Link>
+              <Link href="/assessment">Update Assessments</Link>
               <form
                 action={async () => {
                   'use server';
                   await signOut();
                 }}
               >
-                <button className="btn">Signout</button>
+                <Button type="submit">Signout</Button>
               </form>
             </>
           )}

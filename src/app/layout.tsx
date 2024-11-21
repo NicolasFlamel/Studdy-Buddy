@@ -19,14 +19,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="light">
+    <html lang="en" className="dark">
       <body>
         <Providers className="grid grid-rows-layout gap-4 min-w-80 min-h-screen">
-          <NavBar className="nav" />
-          <main className="max-w-screen-xl justify-self-center">
+          <NavBar className="nav row-start-1" />
+          <main className="max-w-screen-xl justify-self-center row-start-2">
             {children}
           </main>
-          <Footer />
+          <Footer className="row-start-3" />
         </Providers>
       </body>
     </html>

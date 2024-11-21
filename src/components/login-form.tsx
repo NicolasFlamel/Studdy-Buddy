@@ -3,6 +3,7 @@
 import { useActionState } from 'react';
 import { authenticate } from 'lib/actions';
 import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
+import { Button } from '@nextui-org/react';
 
 export default function LoginForm() {
   const [errorMessage, formAction, isPending] = useActionState(
@@ -15,29 +16,21 @@ export default function LoginForm() {
       <h2 className="container text-center">Login</h2>
       <label htmlFor="username">Username:</label>
       <input
-        id="username"
         type="text"
         name="username"
-        className="username"
         placeholder="Enter Username"
         required
       />
       <label htmlFor="password">Password:</label>
       <input
-        id="password"
         type="password"
         name="password"
-        className="password"
         placeholder="Enter Password"
         required
       />
-      <button
-        id="homepage-login"
-        className="btn btn-grad"
-        aria-disabled={isPending}
-      >
+      <Button type="submit" aria-disabled={isPending}>
         Login
-      </button>
+      </Button>
       <div
         className="flex h-8 items-end space-x-1"
         aria-live="polite"

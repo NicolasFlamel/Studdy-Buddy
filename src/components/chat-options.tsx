@@ -1,4 +1,5 @@
 import { ScoresTableSelect } from 'drizzle/schema';
+import { Button } from '@nextui-org/button';
 
 interface ChatOptionsProps {
   scores: ScoresTableSelect;
@@ -30,21 +31,19 @@ const ChatOptions = async ({ scores }: ChatOptionsProps) => {
   };
 
   return (
-    <article id="chat-options" className="container flex justify-evenly">
-      <section id="create-room" className="text-center">
-        <select className="form-select" aria-label="select subject">
+    <article id="chat-options">
+      <section id="create-room">
+        <select aria-label="select subject">
           <option value="vanillaJs">Vanilla JS</option>
           <option value="mySql">mySQL</option>
           <option value="nodeJs">Node.JS</option>
           <option value="express">Express</option>
           <option value="oop">OOP</option>
         </select>
-        <button className="btn btn-grad chat-btn" data-option="find">
-          Find a buddy
-        </button>
+        <Button data-option="find">Find a buddy</Button>
       </section>
       <section id="join-room">
-        <table className="table table-striped">
+        <table>
           <thead>
             <tr>
               <th scope="col">Subject</th>
@@ -53,9 +52,7 @@ const ChatOptions = async ({ scores }: ChatOptionsProps) => {
           </thead>
           <tbody>{Object.keys(scores).map(getTabRow)}</tbody>
         </table>
-        <button className="btn btn-grad chat-btn" data-option="help">
-          Help a buddy
-        </button>
+        <Button data-option="help">Help a buddy</Button>
       </section>
     </article>
   );

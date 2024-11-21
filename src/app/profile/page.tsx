@@ -1,55 +1,41 @@
-
+import { Button } from '@nextui-org/button';
 
 const ProfilePage = () => {
   return (
     <>
-      <article className="container">
-        <section className="row buddy-card text-center">
+      <article>
+        <section>
           <h2>{`{userData.username}'s Profile`}</h2>
         </section>
         {/* {{#if ownProfile}} */}
-        <article className="row container m-0">
-          <section className="buddy-card col">
+        <article>
+          <section>
             <h3>Add a date/time to your available schedule</h3>
             <p>
               Use the calender and time picker to add a date/time to your
               availability so other users can know when you are available
             </p>
           </section>
-          <section className="buddy-card col">
+          <section>
             <form id="add-schedule">
               <fieldset>
                 <table>
                   <tr>
-                    <div className="input-group date" id="date-picker">
-                      <input
-                        type="text"
-                        className="form-control"
-                        value="01/02/2023"
-                        id="date"
-                      />
-                      <span className="input-group-append">
-                        <span className="input-group-text bg-light d-block">
-                          <i className="fa fa-calendar"></i>
+                    <div id="date-picker">
+                      <input type="text" value="01/02/2023" />
+                      <span>
+                        <span>
+                          <i></i>
                         </span>
                       </span>
                     </div>
                   </tr>
                   <tr>
-                    <input
-                      type="time"
-                      className="form-control"
-                      id="time"
-                      value="00:00"
-                    />
+                    <input type="time" value="00:00" />
                   </tr>
                   <tr>
                     <td>
-                      <input
-                        type="submit"
-                        id="submitButton"
-                        className="btn btn-grad"
-                      />
+                      <input type="submit" />
                     </td>
                   </tr>
                 </table>
@@ -58,18 +44,16 @@ const ProfilePage = () => {
           </section>
         </article>
         {/* {{/if}} */}
-        <article className="row buddy-card">
-          <h2 className="text-center">
+        <article>
+          <h2>
             <u>{"{userData.username}'s"} Available Times</u>
           </h2>
-          <ul className="schedule container">
+          <ul>
             {/* {{#each scheduleData}} */}
-            <li className="buddy-card schedule-slot">
+            <li>
               <h3>{'{date}'}</h3>
               {/* {{#if @root.ownProfile}} */}
-              <button data-id="{{id}}" className="btn btn-grad">
-                delete
-              </button>
+              <Button data-id="{{id}}">delete</Button>
               {/* {{/if}} */}
             </li>
             {/* {{/each}} */}

@@ -1,20 +1,20 @@
-
+import { Button } from '@nextui-org/button';
 import LoginForm from 'components/login-form';
 
 const LoginPage = () => {
   return (
     <>
-      <div className="signup-images container text-center">
+      <div>
         <img src="./images/nav-logo.png" />
         <p id="signup-text">where no buddy gets left behind...</p>
       </div>
-      <div className="access container text-center">
+      <div>
         <section id="error-warning"></section>
         <form id="create-account-form">
-          <h2 className="container text-center">Sign up</h2>
-          <label className="username">Username:</label>
+          <h2>Sign up</h2>
+          <label>Username:</label>
           <input id="user-create" type="text" name="name" />
-          <label className="password">Password:</label>
+          <label>Password:</label>
 
           <input
             data-bs-toggle="tooltip"
@@ -23,9 +23,7 @@ const LoginPage = () => {
             type="password"
             name="password"
           />
-          <button id="create-account" className="btn btn-grad">
-            Create Account
-          </button>
+          <Button id="create-account">Create Account</Button>
         </form>
 
         <hr />

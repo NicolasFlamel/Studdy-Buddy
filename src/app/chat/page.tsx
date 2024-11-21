@@ -5,7 +5,6 @@ const ChatPage = () => {
   return (
     <>
       <article
-        id="chat-page"
         data-chat-id="{{chatData.id}}"
         data-user-id="{{id}}"
         data-username="{{username}}"
@@ -14,7 +13,6 @@ const ChatPage = () => {
       >
         {/* <!-- Searching for user Modal --> */}
         <article
-          id="no-user-modal"
           tabIndex={-1}
           aria-labelledby="no-user-title"
           aria-hidden="true"
@@ -22,7 +20,7 @@ const ChatPage = () => {
           <section>
             <section>
               <section>
-                <h2 id="no-user-title">No user found</h2>
+                <h2>No user found</h2>
               </section>
               <section>
                 There is currently no users to match you with. Page will
@@ -40,7 +38,6 @@ const ChatPage = () => {
         </article>
         {/* {{! User found Modal }} */}
         <article
-          id="found-user-modal"
           tabIndex={-1}
           aria-labelledby="found-user-title"
           aria-hidden="true"
@@ -48,7 +45,7 @@ const ChatPage = () => {
           <section>
             <section>
               <section>
-                <h2 id="found-user-title">User found</h2>
+                <h2>User found</h2>
               </section>
               <section>
                 {`A user was found. Click on "Connect" to to connect with them.
@@ -62,7 +59,7 @@ const ChatPage = () => {
           </section>
         </article>
         {/* {{! second user information }} */}
-        <section id="buddy-window">
+        <section>
           <section>
             <h2>
               Currently Connected Buddy:
@@ -81,7 +78,7 @@ const ChatPage = () => {
           </section>
         </section>
         {/* {{! chat window }} */}
-        <section id="chat-window">
+        <section>
           <ul></ul>
           <form>
             <input type="text" autoComplete="off" autoFocus />

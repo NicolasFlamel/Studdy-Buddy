@@ -31,8 +31,8 @@ const ChatOptions = async ({ scores }: ChatOptionsProps) => {
   };
 
   return (
-    <article id="chat-options">
-      <section id="create-room">
+    <article>
+      <section>
         <select aria-label="select subject">
           <option value="vanillaJs">Vanilla JS</option>
           <option value="mySql">mySQL</option>
@@ -42,7 +42,7 @@ const ChatOptions = async ({ scores }: ChatOptionsProps) => {
         </select>
         <Button data-option="find">Find a buddy</Button>
       </section>
-      <section id="join-room">
+      <section>
         <table>
           <thead>
             <tr>

@@ -6,24 +6,23 @@ const LoginPage = () => {
     <>
       <div>
         <img src="./images/nav-logo.png" />
-        <p id="signup-text">where no buddy gets left behind...</p>
+        <p>where no buddy gets left behind...</p>
       </div>
       <div>
-        <section id="error-warning"></section>
-        <form id="create-account-form">
+        <section></section>
+        <form>
           <h2>Sign up</h2>
           <label>Username:</label>
-          <input id="user-create" type="text" name="name" />
+          <input type="text" name="name" />
           <label>Password:</label>
 
           <input
             data-bs-toggle="tooltip"
             data-bs-title="Password must be at least 8 characters in length"
-            id="password-create"
             type="password"
             name="password"
           />
-          <Button id="create-account">Create Account</Button>
+          <Button>Create Account</Button>
         </form>
 
         <hr />

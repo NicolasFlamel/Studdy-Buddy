@@ -17,11 +17,11 @@ const ProfilePage = () => {
             </p>
           </section>
           <section>
-            <form id="add-schedule">
+            <form>
               <fieldset>
                 <table>
                   <tr>
-                    <div id="date-picker">
+                    <div>
                       <input type="text" value="01/02/2023" />
                       <span>
                         <span>

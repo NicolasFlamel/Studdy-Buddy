@@ -11,13 +11,12 @@ const NavBar = async ({ className = '' }: HTMLAttributes<HTMLElement>) => {
     <header className={className + ' flex w-full justify-center'}>
       <nav className="flex max-w-screen-xl w-full">
         <Image
-          id="nav-logo"
           src="/images/nav-logo.png"
           alt="Studdy Buddy logo"
           width={713}
           height={55}
         />
-        <section id="nav- ">
+        <section>
           <Link href="/">Home</Link>
           {!session?.user ? (
             <Link href="/login">Login Page</Link>

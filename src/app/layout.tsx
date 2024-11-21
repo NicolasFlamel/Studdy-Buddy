@@ -1,7 +1,7 @@
 import '@/layout.css';
 import { Providers } from './providers';
 import Footer from 'components/footer';
-import NavBar from 'components/nav-bar';
+import Header from 'components/header';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -22,7 +22,7 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body>
         <Providers className="grid grid-rows-layout gap-4 min-w-80 min-h-screen">
-          <NavBar className="nav row-start-1" />
+          <Header className="nav row-start-1" />
           <main className="max-w-screen-xl justify-self-center row-start-2">
             {children}
           </main>

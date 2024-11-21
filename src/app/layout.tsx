@@ -1,4 +1,4 @@
-import '@/globals.css';
+import '@/layout.css';
 import { Providers } from './providers';
 import Footer from 'components/footer';
 import NavBar from 'components/nav-bar';

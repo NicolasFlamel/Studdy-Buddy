@@ -1,5 +1,4 @@
 import { auth } from 'auth';
-import './styles.css';
 import Image from 'next/image';
 import ChatOptions from 'components/chat-options';
 

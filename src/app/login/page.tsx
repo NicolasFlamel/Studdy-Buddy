@@ -1,4 +1,4 @@
-import './styles.css';
+
 import LoginForm from 'components/login-form';
 
 const LoginPage = () => {

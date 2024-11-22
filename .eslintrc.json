@@ -1,3 +1,9 @@
 {
+  "rules": {
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      { "ignoreRestSiblings": true }
+    ]
+  },
   "extends": ["next/core-web-vitals", "next/typescript"]
 }

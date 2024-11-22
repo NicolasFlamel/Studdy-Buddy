@@ -1,57 +1,81 @@
+'use client';
+
 import { ScoresTableSelect } from 'drizzle/schema';
 import { Button } from '@nextui-org/button';
+import { Select, SelectItem } from '@nextui-org/select';
+import {
+  getKeyValue,
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableHeader,
+  TableRow,
+} from '@nextui-org/table';
+
+type SubjectScoresType = {
+  vanillaJs: number;
+  mySql: number;
+  nodeJs: number;
+  express: number;
+  oop: number;
+};
+type SubjectType = { key: keyof SubjectScoresType; label: string };
 
 interface ChatOptionsProps {
   scores: ScoresTableSelect;
 }
 
-const ChatOptions = async ({ scores }: ChatOptionsProps) => {
-  const getTabRow = (key: string) => {
-    const getJsx = (key: keyof ScoresTableSelect) => (
-      <tr key={key}>
-        <th scope="row">{key}</th>
-        <td>{scores[key]}</td>
-      </tr>
-    );
+const ChatOptions = ({ scores }: ChatOptionsProps) => {
+  const { id, userId, ...subjectScores } = scores;
+  const subjects: SubjectType[] = [
+    { key: 'vanillaJs', label: 'VanillaJS' },
+    { key: 'mySql', label: 'mySQL' },
+    { key: 'nodeJs', label: 'Node.JS' },
+    { key: 'express', label: 'Express' },
+    { key: 'oop', label: 'OOP' },
+  ];
+  const scoreRows = Object.keys(subjectScores).map((subjectKey) => {
+    const subjectObj = subjects.find((obj) => obj.key === subjectKey);
 
-    switch (key) {
-      case 'vanillaJs':
-        return getJsx(key);
-      case 'mySql':
-        return getJsx(key);
-      case 'nodeJs':
-        return getJsx(key);
-      case 'express':
-        return getJsx(key);
-      case 'oop':
-        return getJsx(key);
-      default:
-        return;
-    }
-  };
+    if (!subjectObj) throw 'Could not find subject';
+
+    const key = subjectObj.key;
+    const subject = subjectObj.label;
+    const score = subjectScores[key];
+
+    return { key, subject, score };
+  });
 
   return (
-    <article>
-      <section>
-        <select aria-label="select subject">
-          <option value="vanillaJs">Vanilla JS</option>
-          <option value="mySql">mySQL</option>
-          <option value="nodeJs">Node.JS</option>
-          <option value="express">Express</option>
-          <option value="oop">OOP</option>
-        </select>
+    <article className="flex justify-center gap-4">
+      <section className="flex flex-wrap max-w-xs items-center gap-2">
+        <Select label="Select Subject">
+          {subjects.map((subject) => (
+            <SelectItem key={subject.key}>{subject.label}</SelectItem>
+          ))}
+        </Select>
         <Button data-option="find">Find a buddy</Button>
       </section>
       <section>
-        <table>
-          <thead>
-            <tr>
-              <th scope="col">Subject</th>
-              <th scope="col">Score</th>
-            </tr>
-          </thead>
-          <tbody>{Object.keys(scores).map(getTabRow)}</tbody>
-        </table>
+        <Table>
+          <TableHeader>
+            <TableColumn key={'subject'}>Subject</TableColumn>
+            <TableColumn key={'score'}>Score</TableColumn>
+          </TableHeader>
+          <TableBody items={scoreRows}>
+            {(item) => {
+              console.log('item', item);
+              return (
+                <TableRow key={item.key}>
+                  {(columnKey) => (
+                    <TableCell>{getKeyValue(item, columnKey)}</TableCell>
+                  )}
+                </TableRow>
+              );
+            }}
+          </TableBody>
+        </Table>
         <Button data-option="help">Help a buddy</Button>
       </section>
     </article>

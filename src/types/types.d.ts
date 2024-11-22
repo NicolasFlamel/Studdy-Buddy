@@ -23,7 +23,8 @@ declare module 'next-auth' {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// import jwt to be able to modify it
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
 import { JWT } from 'next-auth/jwt';
 declare module 'next-auth/jwt' {
   /** Returned by the `jwt` callback and `auth`, when using JWT sessions */

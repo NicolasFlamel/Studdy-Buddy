@@ -1,136 +1,68 @@
 import { Button } from '@nextui-org/button';
+import { RadioGroup, Radio } from '@nextui-org/radio';
+import { Card, CardHeader, CardBody, CardFooter } from '@nextui-org/card';
+import { Divider } from '@nextui-org/divider';
+
+interface RadioOptionsProps {
+  defaultValue?: string;
+  name?: string;
+}
+const RadioOptions = ({ defaultValue, name }: RadioOptionsProps) => {
+  return (
+    <RadioGroup
+      name={name}
+      label="Select your understanding level"
+      orientation="horizontal"
+      defaultValue={defaultValue ?? '1'}
+    >
+      <Radio value={'1'}>1</Radio>
+      <Radio value={'2'}>2</Radio>
+      <Radio value={'3'}>3</Radio>
+      <Radio value={'4'}>4</Radio>
+      <Radio value={'5'}>5</Radio>
+    </RadioGroup>
+  );
+};
 
 const AssessmentPage = () => {
   return (
-    <>
-      <div>
-        <h1>Self-assessment</h1>
-        <p>
-          Please rate your understanding of each topic on a scale of 1 (I am
-          completely new to the topic) to 5 (I understand the topic and could
-          teach it to others):
-        </p>
-      </div>
-      <form action="/api/scores" target="dummyframe" method="post">
-        <div>
-          <section></section>
-          <p>Vanilla JS- functions, looping, scope, es6 syntax etc</p>
+    <form>
+      <Card>
+        <CardHeader className="grid">
+          <h1>Self-assessment</h1>
+          <p>Please rate your understanding of each topic.</p>
+          <p>1 = I am completely new to the topic</p>
+          <p>5 = I understand the topic and could teach it to others</p>
+        </CardHeader>
+        <Divider />
+        <CardBody className="grid justify-center gap-4 p-4">
           <section>
-            <input type="radio" name="vanillaJs" value="1" defaultChecked />
-            <label htmlFor="inlineRadio1">1</label>
+            <p>Vanilla JS: functions, looping, scope, es6 syntax etc</p>
+            <RadioOptions name="vanillaJs" />
           </section>
           <section>
-            <input type="radio" name="vanillaJs" value="2" />
-            <label htmlFor="inlineRadio2">2</label>
+            <p>MYSQL - Joins, queries, schemas, seeds</p>
+            <RadioOptions name="mySql" />
           </section>
           <section>
-            <input type="radio" name="vanillaJs" value="3" />
-            <label htmlFor="inlineRadio1">3</label>
+            <p>Node.JS - what is it? requiring, exporting, packages</p>
+            <RadioOptions name="nodeJs" />
           </section>
           <section>
-            <input type="radio" name="vanillaJs" value="4" />
-            <label htmlFor="inlineRadio2">4</label>
+            <p>Express - starting server, defining routes, serving html/data</p>
+            <RadioOptions name="express" />
           </section>
           <section>
-            <input type="radio" name="vanillaJs" value="5" />
-            <label htmlFor="inlineRadio1">5</label>
+            <p>OOP - Constructors, promises, classes etc</p>
+            <RadioOptions name="oop" />
           </section>
-
-          <p>MYSQL - Joins, queries, schemas, seeds</p>
-          <section>
-            <input type="radio" name="mySql" value="1" defaultChecked />
-            <label htmlFor="inlineRadio1">1</label>
-          </section>
-          <section>
-            <input type="radio" name="mySql" value="2" />
-            <label htmlFor="inlineRadio2">2</label>
-          </section>
-          <section>
-            <input type="radio" name="mySql" value="3" />
-            <label htmlFor="inlineRadio1">3</label>
-          </section>
-          <section>
-            <input type="radio" name="mySql" value="4" />
-            <label htmlFor="inlineRadio2">4</label>
-          </section>
-          <section>
-            <input type="radio" name="mySql" value="5" />
-            <label htmlFor="inlineRadio1">5</label>
-          </section>
-
-          <p>Node.JS- what is it? requiring, exporting, packages</p>
-          <section>
-            <input type="radio" name="nodeJs" value="1" defaultChecked />
-            <label htmlFor="inlineRadio1">1</label>
-          </section>
-          <section>
-            <input type="radio" name="nodeJs" value="2" />
-            <label htmlFor="inlineRadio2">2</label>
-          </section>
-          <section>
-            <input type="radio" name="nodeJs" value="3" />
-            <label htmlFor="inlineRadio1">3</label>
-          </section>
-          <section>
-            <input type="radio" name="nodeJs" value="4" />
-            <label htmlFor="inlineRadio2">4</label>
-          </section>
-          <section>
-            <input type="radio" name="nodeJs" value="5" />
-            <label htmlFor="inlineRadio1">5</label>
-          </section>
-
-          <p>Express- starting server, defining routes, serving html/data</p>
-          <section>
-            <input type="radio" name="express" value="1" defaultChecked />
-            <label htmlFor="inlineRadio1">1</label>
-          </section>
-          <section>
-            <input type="radio" name="express" value="2" />
-            <label htmlFor="inlineRadio2">2</label>
-          </section>
-          <section>
-            <input type="radio" name="express" value="3" />
-            <label htmlFor="inlineRadio1">3</label>
-          </section>
-          <section>
-            <input type="radio" name="express" value="4" />
-            <label htmlFor="inlineRadio2">4</label>
-          </section>
-          <section>
-            <input type="radio" name="express" value="5" />
-            <label htmlFor="inlineRadio1">5</label>
-          </section>
-
-          <p>OOP-Constructors, promises, classes etc</p>
-          <section>
-            <input type="radio" name="oop" value="1" defaultChecked />
-            <label htmlFor="inlineRadio1">1</label>
-          </section>
-          <section>
-            <input type="radio" name="oop" value="2" />
-            <label htmlFor="inlineRadio2">2</label>
-          </section>
-          <section>
-            <input type="radio" name="oop" value="3" />
-            <label htmlFor="inlineRadio1">3</label>
-          </section>
-          <section>
-            <input type="radio" name="oop" value="4" />
-            <label htmlFor="inlineRadio2">4</label>
-          </section>
-          <section>
-            <input type="radio" name="oop" value="5" />
-            <label htmlFor="inlineRadio1">5</label>
-          </section>
-
           {/* <!--Submit button--> */}
-          <section>
-            <Button type="submit">Update</Button>
-          </section>
-        </div>
-      </form>
-    </>
+        </CardBody>
+        <CardFooter className="justify-end">
+          <Button type="submit">Update</Button>
+        </CardFooter>
+      </Card>
+    </form>
   );
 };
 

@@ -1,5 +1,6 @@
 'use client';
 
+import { SubjectScoresType } from 'types';
 import { ScoresTableSelect } from 'drizzle/schema';
 import { Button } from '@nextui-org/button';
 import { Select, SelectItem } from '@nextui-org/select';
@@ -13,13 +14,6 @@ import {
   TableRow,
 } from '@nextui-org/table';
 
-type SubjectScoresType = {
-  vanillaJs: number;
-  mySql: number;
-  nodeJs: number;
-  express: number;
-  oop: number;
-};
 type SubjectType = { key: keyof SubjectScoresType; label: string };
 
 interface ChatOptionsProps {
@@ -65,7 +59,6 @@ const ChatOptions = ({ scores }: ChatOptionsProps) => {
           </TableHeader>
           <TableBody items={scoreRows}>
             {(item) => {
-              console.log('item', item);
               return (
                 <TableRow key={item.key}>
                   {(columnKey) => (

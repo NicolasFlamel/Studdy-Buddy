@@ -1,6 +1,6 @@
 import { auth } from 'auth';
 import Image from 'next/image';
-import ChatOptions from 'components/chat-options';
+import ChatOptions from 'components/chat/chat-options';
 
 const Home = async () => {
   const session = await auth();

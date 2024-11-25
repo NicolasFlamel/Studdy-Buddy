@@ -23,9 +23,11 @@ const Home = async () => {
           height={500}
         />
       </div>
-      <section className="text-center">
-        <h2>Welcome{username ? ' ' + username : null}!</h2>
-        <p>
+      <section className="m-4">
+        <h2 className="text-center">
+          Welcome{username ? ' ' + username : null}!
+        </h2>
+        <p className="m-4">
           {
             "Have you ever been struggling in class but you don't know who to reach out to? Introducing Studdy Buddy, an application that allows you to connect with your peers to discuss and work on different topics together. Users are able to rate their understanding of topics on a scale of 1-5 and these scores are used to pair you with someone who understands the topic better than yourself. This allows students to learn from their peers and work together to solve problems rather than have to rely on an outside tutor or having to ask the teacher. Users can also choose to be the ones that provide help to their peers with the click of a button. Students connect in a chat room where they may discuss what they are struggling with."
           }

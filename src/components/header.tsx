@@ -36,7 +36,7 @@ const Header = async ({ className = '' }: HTMLAttributes<HTMLElement>) => {
             <form
               action={async () => {
                 'use server';
-                await signOut();
+                await signOut({ redirectTo: '/' });
               }}
             >
               <Button type="submit" variant="faded">

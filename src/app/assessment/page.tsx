@@ -5,10 +5,11 @@ import { Button } from '@nextui-org/button';
 import { RadioGroup, Radio } from '@nextui-org/radio';
 import { Card, CardHeader, CardBody, CardFooter } from '@nextui-org/card';
 import { Divider } from '@nextui-org/divider';
+import { getUserScores } from 'drizzle';
 
 interface RadioOptionsProps {
   name: keyof SubjectScoresType;
-  scores: SubjectScoresType;
+  scores?: SubjectScoresType;
 }
 const RadioOptions = ({ name, scores }: RadioOptionsProps) => {
   const defaultValue = scores ? scores[name].toString() : '1';
@@ -34,9 +35,9 @@ const AssessmentPage = async () => {
 
   if (!session) throw 'Missing session data';
 
-  const { scores } = session.user;
+  const { id } = session.user;
 
-  if (!scores) throw 'Oops something went wrong, missing scores data';
+  const scores = await getUserScores(id);
 
   return (
     <form action={updateAssessment}>

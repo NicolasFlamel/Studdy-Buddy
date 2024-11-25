@@ -1,11 +1,13 @@
 import { auth } from 'auth';
 import Image from 'next/image';
 import ChatOptions from 'components/chat/chat-options';
+import { getUserScores } from 'drizzle';
 
 const Home = async () => {
   const session = await auth();
-  const username = session?.user?.name;
-  const scores = session?.user.scores;
+  const username = session?.user.name;
+  const id = session?.user.id;
+  const scores = id ? await getUserScores(id) : undefined;
 
   return (
     <>

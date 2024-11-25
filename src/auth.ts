@@ -2,7 +2,7 @@ import NextAuth from 'next-auth';
 import { authConfig } from './auth.config';
 import Credentials from 'next-auth/providers/credentials';
 import { z } from 'zod';
-import { getUserWithScores } from 'drizzle';
+import { getUser } from 'drizzle';
 import bcrypt from 'bcrypt';
 
 export const { auth, signIn, signOut } = NextAuth({
@@ -24,21 +24,17 @@ export const { auth, signIn, signOut } = NextAuth({
         if (!parsedCredentials.success) return null;
 
         const { username, password } = parsedCredentials.data;
-        const user = await getUserWithScores(username);
+        const user = await getUser(username);
 
         if (!user) return null;
 
         const passwordsMatch = await bcrypt.compare(password, user.password);
 
-        if (passwordsMatch) {
-          const userData = {
-            id: user.id,
-            name: user.username,
-            scores: user.userScores,
-          };
-          return userData;
-        }
-        return null;
+        if (!passwordsMatch) return null;
+
+        const userData = { id: user.id, name: user.username };
+
+        return userData;
       },
     }),
   ],

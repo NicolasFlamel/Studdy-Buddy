@@ -10,18 +10,18 @@ export const authConfig = {
   },
   callbacks: {
     async jwt({ token, user }) {
-      if (!user?.scores) return token;
+      if (!user?.id) return token;
 
-      const newToken: JWT = { ...token, scores: user.scores };
+      const newToken: JWT = { ...token, userId: user.id };
 
       return newToken;
     },
     async session({ session, token }) {
-      if (!session.user || !token.scores) return session;
+      if (!session.user || !token.userId) return session;
 
       const newSession: Session = {
         ...session,
-        user: { ...session.user, scores: token.scores },
+        user: { ...session.user, id: token.userId },
       };
       return newSession;
     },

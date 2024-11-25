@@ -1,19 +1,24 @@
+import { auth } from 'auth';
+import { SubjectScoresType } from 'types';
+import { updateAssessment } from 'lib/actions';
 import { Button } from '@nextui-org/button';
 import { RadioGroup, Radio } from '@nextui-org/radio';
 import { Card, CardHeader, CardBody, CardFooter } from '@nextui-org/card';
 import { Divider } from '@nextui-org/divider';
 
 interface RadioOptionsProps {
-  defaultValue?: string;
-  name?: string;
+  name: keyof SubjectScoresType;
+  scores: SubjectScoresType;
 }
-const RadioOptions = ({ defaultValue, name }: RadioOptionsProps) => {
+const RadioOptions = ({ name, scores }: RadioOptionsProps) => {
+  const defaultValue = scores ? scores[name].toString() : '1';
+
   return (
     <RadioGroup
       name={name}
       label="Select your understanding level"
       orientation="horizontal"
-      defaultValue={defaultValue ?? '1'}
+      defaultValue={defaultValue}
     >
       <Radio value={'1'}>1</Radio>
       <Radio value={'2'}>2</Radio>
@@ -24,9 +29,17 @@ const RadioOptions = ({ defaultValue, name }: RadioOptionsProps) => {
   );
 };
 
-const AssessmentPage = () => {
+const AssessmentPage = async () => {
+  const session = await auth();
+
+  if (!session) throw 'Missing session data';
+
+  const { scores } = session.user;
+
+  if (!scores) throw 'Oops something went wrong, missing scores data';
+
   return (
-    <form>
+    <form action={updateAssessment}>
       <Card>
         <CardHeader className="grid">
           <h1>Self-assessment</h1>
@@ -38,23 +51,23 @@ const AssessmentPage = () => {
         <CardBody className="grid justify-center gap-4 p-4">
           <section>
             <p>Vanilla JS: functions, looping, scope, es6 syntax etc</p>
-            <RadioOptions name="vanillaJs" />
+            <RadioOptions name="vanillaJs" scores={scores} />
           </section>
           <section>
             <p>MYSQL - Joins, queries, schemas, seeds</p>
-            <RadioOptions name="mySql" />
+            <RadioOptions name="mySql" scores={scores} />
           </section>
           <section>
             <p>Node.JS - what is it? requiring, exporting, packages</p>
-            <RadioOptions name="nodeJs" />
+            <RadioOptions name="nodeJs" scores={scores} />
           </section>
           <section>
             <p>Express - starting server, defining routes, serving html/data</p>
-            <RadioOptions name="express" />
+            <RadioOptions name="express" scores={scores} />
           </section>
           <section>
             <p>OOP - Constructors, promises, classes etc</p>
-            <RadioOptions name="oop" />
+            <RadioOptions name="oop" scores={scores} />
           </section>
           {/* <!--Submit button--> */}
         </CardBody>

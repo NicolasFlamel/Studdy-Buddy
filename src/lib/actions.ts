@@ -8,7 +8,11 @@ export async function authenticate(
   formData: FormData,
 ) {
   try {
-    await signIn('credentials', formData);
+    const username = formData.get('username');
+    const password = formData.get('password');
+    const singInOptions = { username, password, redirectTo: '/' };
+
+    await signIn('credentials', singInOptions);
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
@@ -21,3 +25,7 @@ export async function authenticate(
     throw error;
   }
 }
+
+export const updateAssessment = async (formData: FormData) => {
+  console.log(formData);
+};

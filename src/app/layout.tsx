@@ -23,7 +23,7 @@ export default function RootLayout({
       <body>
         <Providers className="grid grid-rows-layout gap-4 min-w-80 min-h-screen">
           <Header className="nav row-start-1" />
-          <main className="max-w-screen-xl justify-self-center row-start-2">
+          <main className="w-full max-w-screen-xl justify-self-center row-start-2">
             {children}
           </main>
           <Footer className="row-start-3" />

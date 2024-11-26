@@ -1,105 +1,69 @@
-import Link from 'next/link';
+import { NextPageProps } from 'types/nextJsTypes';
+import SearchingModal from 'components/chat/searching-modal';
+import { Modal } from '@nextui-org/modal';
+import { Input } from '@nextui-org/input';
 import { Button } from '@nextui-org/button';
+import { Card, CardBody, CardFooter } from '@nextui-org/card';
+import { Divider } from '@nextui-org/divider';
 
-const ChatPage = () => {
+const ChatPage = async ({ searchParams }: NextPageProps) => {
+  const lengthTest = 50;
+  const params = await searchParams;
+  const isOpen = false;
+
+  if (!params.type || !params.subject) throw 'Missing params';
+
   return (
-    <>
-      <article
-        data-chat-id="{{chatData.id}}"
-        data-user-id="{{id}}"
-        data-username="{{username}}"
-        data-is-active="{{isActive}}"
-        data-room-status="{{roomStatus}}"
+    <article className="m-4 gap-4 h-[75vh] grid grid-rows-[max-content_1fr]">
+      {/* {{! second user information }} */}
+      <Card>
+        <CardBody className="text-center">
+          <h2>
+            Currently Connected Buddy:
+            <a
+              href="/user/{{chatData.username}}"
+              data-user-id="{{chatData.userId}}"
+              target="_blank"
+            >{`{chatData.username}`}</a>
+          </h2>
+          <h2>Studdy Buddy Subject: {params.subject}</h2>
+        </CardBody>
+      </Card>
+      {/* {{! chat window }} */}
+      <Card className="h-full">
+        <CardBody>
+          <ul className="overflow-y-scroll">
+            <li className="self bg-background">
+              {"You have joined the chat as 'Ornaolyp'."}
+            </li>
+            {Array.from({ length: lengthTest }, (_, i) => i).map((i) => (
+              <li key={i} className="buddy">
+                {'Kertasma just joined the chat!'}
+              </li>
+            ))}
+          </ul>
+        </CardBody>
+        <Divider />
+        <CardFooter>
+          <Input
+            type="text"
+            autoFocus
+            label="Message"
+            placeholder="Start typing here"
+            className="m-4"
+          />
+          <Button>Send</Button>
+        </CardFooter>
+      </Card>
+      {/* Search Modal */}
+      <Modal
+        isOpen={isOpen}
+        isDismissable={false}
+        isKeyboardDismissDisabled={true}
       >
-        {/* <!-- Searching for user Modal --> */}
-        <article
-          tabIndex={-1}
-          aria-labelledby="no-user-title"
-          aria-hidden="true"
-        >
-          <section>
-            <section>
-              <section>
-                <h2>No user found</h2>
-              </section>
-              <section>
-                There is currently no users to match you with. Page will
-                automatically refresh if a user is found
-              </section>
-              <section>
-                <Link href="/">Go Home</Link>
-                <Button type="button" disabled>
-                  <span role="status" aria-hidden="true"></span>
-                  Searching...
-                </Button>
-              </section>
-            </section>
-          </section>
-        </article>
-        {/* {{! User found Modal }} */}
-        <article
-          tabIndex={-1}
-          aria-labelledby="found-user-title"
-          aria-hidden="true"
-        >
-          <section>
-            <section>
-              <section>
-                <h2>User found</h2>
-              </section>
-              <section>
-                {`A user was found. Click on "Connect" to to connect with them.
-                Room may fill up before you connect.`}
-              </section>
-              <section>
-                <Link href="/">Go Home</Link>
-                <Button type="button">Connect</Button>
-              </section>
-            </section>
-          </section>
-        </article>
-        {/* {{! second user information }} */}
-        <section>
-          <section>
-            <h2>
-              Currently Connected Buddy:
-              <a
-                href="/user/{{chatData.username}}"
-                data-user-id="{{chatData.userId}}"
-                target="_blank"
-              >{`{chatData.username}`}</a>
-            </h2>
-            <h2>
-              Studdy Buddy Subject:
-              <span data-subject="{{chatData.subject}}">{`{formatSubject
-            chatData.subject
-          }`}</span>
-            </h2>
-          </section>
-        </section>
-        {/* {{! chat window }} */}
-        <section>
-          <ul></ul>
-          <form>
-            <input type="text" autoComplete="off" autoFocus />
-            <Button>Send</Button>
-          </form>
-        </section>
-      </article>
-
-      {/* {{#section 'style'}}
-  <link rel='stylesheet' href='/css/chat.css' />
-{{/section}}
-
-{{#section 'script'}}
-  <script
-    src='https://cdn.socket.io/4.5.4/socket.io.min.js'
-    integrity='sha384-/KNQL8Nu5gCHLqwqfQjA689Hhoqgi2S84SNUxC3roTe4EhJ9AfLkp8QiQcU8AMzI'
-    crossorigin='anonymous'
-  ></script>
-  <script src='./js/chat.js'></script>
-{{/section}} */}
-    </>
+        <SearchingModal found={false} />
+      </Modal>
+    </article>
   );
 };
 

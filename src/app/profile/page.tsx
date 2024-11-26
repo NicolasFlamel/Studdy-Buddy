@@ -1,101 +1,55 @@
 import { Button } from '@nextui-org/button';
+import { auth } from 'auth';
+import UserAvailabilityTable from 'components/profile/user-times-table';
 
-const ProfilePage = () => {
+const ProfilePage = async () => {
+  const session = await auth();
+  const dateNow = new Date().toISOString().split('T');
+  const calenderNow = dateNow[0];
+  const timeNow = dateNow[1];
+
+  console.log(timeNow);
+
+  if (!session) throw 'Mission session data';
+
+  const { user } = session;
+
   return (
-    <>
-      <article>
-        <section>
-          <h2>{`{userData.username}'s Profile`}</h2>
-        </section>
-        {/* {{#if ownProfile}} */}
-        <article>
+    <section className="m-4">
+      <section className="text-4xl text-center m-4">
+        <h2>{user.name + "'s Profile"}</h2>
+      </section>
+      {/* {{#if ownProfile}} */}
+      <section className="grid grid-cols-1 grid-rows-2 gap-4 p-4">
+        <article className="grid grid-cols-[repeat(2,minmax(20,500))] gap-4">
           <section>
-            <h3>Add a date/time to your available schedule</h3>
+            <h3 className="text-3xl mb-4">
+              Add a date/time to your available schedule
+            </h3>
             <p>
               Use the calender and time picker to add a date/time to your
               availability so other users can know when you are available
             </p>
           </section>
+
           <section>
-            <form>
-              <fieldset>
-                <table>
-                  <tr>
-                    <div>
-                      <input type="text" value="01/02/2023" />
-                      <span>
-                        <span>
-                          <i></i>
-                        </span>
-                      </span>
-                    </div>
-                  </tr>
-                  <tr>
-                    <input type="time" value="00:00" />
-                  </tr>
-                  <tr>
-                    <td>
-                      <input type="submit" />
-                    </td>
-                  </tr>
-                </table>
-              </fieldset>
+            <form className="flex flex-wrap gap-4">
+              <input type="date" defaultValue={calenderNow} />
+              <input type="time" defaultValue="19:16" step={60} />
+              <Button type="submit">Submit</Button>
             </form>
           </section>
         </article>
         {/* {{/if}} */}
-        <article>
-          <h2>
-            <u>{"{userData.username}'s"} Available Times</u>
+
+        <article className="grid justify-center gap-4">
+          <h2 className="text-4xl">
+            <u>{user.name + "'s"} Available Times</u>
           </h2>
-          <ul>
-            {/* {{#each scheduleData}} */}
-            <li>
-              <h3>{'{date}'}</h3>
-              {/* {{#if @root.ownProfile}} */}
-              <Button data-id="{{id}}">delete</Button>
-              {/* {{/if}} */}
-            </li>
-            {/* {{/each}} */}
-          </ul>
+          <UserAvailabilityTable className="max-w-2xl" />
         </article>
-      </article>
-
-      {/* {{! style links }}
-{{#section 'style'}}
-  <link
-    rel='stylesheet'
-    href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css'
-  />
-  <link
-    rel='stylesheet'
-    href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'
-  />
-  <link rel='stylesheet' href='/css/profile.css' />
-{{/section}}
-
-{{! script links }}
-{{#section 'script'}}
-  <script
-    src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js'
-  ></script>
-  <script
-    src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'
-  ></script>
-  <script
-    src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js'
-  ></script>
-  <script
-    src='https://cdnjs.cloudflare.com/ajax/libs/luxon/3.2.1/luxon.min.js'
-    integrity='sha512-pyR2hpC7bLig9Ub4eUIOC/BAO4anpdt7jhpF4dfrPv+qIg+KWztdVjFPCRCsRaWVfUylUCvrrxqMFNrJBdQIjQ=='
-    crossorigin='anonymous'
-    referrerpolicy='no-referrer'
-  ></script>
-  {{#if ownProfile}}
-    <script src='/js/profile.js'></script>
-  {{/if}}
-{{/section}} */}
-    </>
+      </section>
+    </section>
   );
 };
 

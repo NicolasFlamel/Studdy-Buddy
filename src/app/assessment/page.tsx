@@ -10,7 +10,6 @@ const AssessmentPage = async () => {
   if (!session) throw 'Missing session data';
 
   const { id } = session.user;
-
   const scores = await getUserScores(id);
 
   return (

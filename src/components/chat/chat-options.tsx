@@ -13,6 +13,7 @@ import {
   TableHeader,
   TableRow,
 } from '@nextui-org/table';
+import { Link } from '@nextui-org/link';
 
 type SubjectType = { key: keyof SubjectScoresType; label: string };
 
@@ -49,7 +50,7 @@ const ChatOptions = ({ scores }: ChatOptionsProps) => {
             <SelectItem key={subject.key}>{subject.label}</SelectItem>
           ))}
         </Select>
-        <Button data-option="find">Find a buddy</Button>
+        <Link href="/chat?type=learning&subject=vanillaJs">Find a buddy</Link>
       </section>
       <section>
         <Table>

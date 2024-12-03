@@ -44,16 +44,18 @@ const ChatOptions = ({ scores }: ChatOptionsProps) => {
 
   return (
     <article className="flex justify-center gap-4">
+      {/* Find Buddy */}
       <section className="flex flex-wrap max-w-xs items-center gap-2">
-        <Select label="Select Subject">
+        <Select label="Select Subject" defaultSelectedKeys={[subjects[0].key]}>
           {subjects.map((subject) => (
             <SelectItem key={subject.key}>{subject.label}</SelectItem>
           ))}
         </Select>
         <Link href="/chat?type=learning&subject=vanillaJs">Find a buddy</Link>
       </section>
+      {/* Subject Scores */}
       <section>
-        <Table>
+        <Table aria-label="Subject Scores">
           <TableHeader>
             <TableColumn key={'subject'}>Subject</TableColumn>
             <TableColumn key={'score'}>Score</TableColumn>
@@ -70,7 +72,7 @@ const ChatOptions = ({ scores }: ChatOptionsProps) => {
             }}
           </TableBody>
         </Table>
-        <Button data-option="help">Help a buddy</Button>
+        <Button>Help a buddy</Button>
       </section>
     </article>
   );

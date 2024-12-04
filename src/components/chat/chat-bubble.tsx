@@ -1,6 +1,8 @@
-interface ChatBubbleProps {
-  self: boolean;
-  children: React.ReactNode;
+import { HTMLAttributes } from 'react';
+
+interface ChatBubbleProps extends HTMLAttributes<HTMLDivElement> {
+  self?: boolean;
+  children?: React.ReactNode;
 }
 interface CornerProps {
   color: string;
@@ -30,14 +32,21 @@ const RightCorner = ({ color }: CornerProps) => {
     </div>
   );
 };
-const ChatBubble = ({ self, children }: ChatBubbleProps) => {
+const ChatBubble = ({
+  self = false,
+  children,
+  className,
+  ...divProps
+}: ChatBubbleProps) => {
   const leftClassName = 'flex items-center justify-start';
   const rightClassName = 'flex items-center justify-end';
-  const containerClassName = self ? rightClassName : leftClassName;
+  const containerClassName =
+    (self ? rightClassName : leftClassName) +
+    (className ? ` ${className}` : '');
   const color = self ? 'bg-content4' : 'bg-content2';
 
   return (
-    <div className={containerClassName}>
+    <div className={containerClassName} {...divProps}>
       {!self && <LeftCorner color={color} />}
       <p className={'p-4 my-2 rounded-lg max-w-[90%] ' + color}>{children}</p>
       {self && <RightCorner color={color} />}

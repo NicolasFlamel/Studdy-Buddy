@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "seed": "node seeds/seed.js",
-    "watch": "nodemon server.js",
+    "dev": "nodemon server.js",
     "prettier": "npx prettier --write ."
   },
   "author": "",
@@ -19,8 +19,9 @@
     "express": "^4.17.1",
     "express-handlebars": "^5.2.0",
     "express-session": "^1.17.1",
-    "mysql2": "^2.2.5",
-    "sequelize": "^6.3.5",
+    "pg": "^8.13.1",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.5",
     "socket.io": "^4.5.4"
   },
   "devDependencies": {

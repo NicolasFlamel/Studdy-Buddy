@@ -6,7 +6,7 @@ const sequelize = new Sequelize(
   process.env.DB_RENDER_USER_PSQL,
   process.env.DB_RENDER_PASSWORD_PSQL,
   {
-    host: '127.0.0.1',
+    host: process.env.DB_HOST,
     dialect: 'postgres',
     port: 5432,
     logging: false,

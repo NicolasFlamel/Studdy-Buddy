@@ -1,14 +1,22 @@
 const { Sequelize } = require('sequelize');
 require('dotenv').config();
 
+const {
+  DB_NAME_PSQL,
+  DB_RENDER_USER_PSQL,
+  DB_RENDER_PASSWORD_PSQL,
+  DB_HOST,
+  DB_RENDER_PORT,
+} = process.env;
+
 const sequelize = new Sequelize(
-  process.env.DB_NAME_PSQL,
-  process.env.DB_RENDER_USER_PSQL,
-  process.env.DB_RENDER_PASSWORD_PSQL,
+  DB_NAME_PSQL,
+  DB_RENDER_USER_PSQL,
+  DB_RENDER_PASSWORD_PSQL,
   {
-    host: process.env.DB_HOST,
+    host: DB_HOST,
     dialect: 'postgres',
-    port: 5432,
+    port: DB_RENDER_PORT,
     logging: false,
   },
 );

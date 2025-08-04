@@ -4,7 +4,6 @@ const session = require('express-session');
 const exphbs = require('express-handlebars');
 const routes = require('./controllers');
 const helpers = require('./utils/helpers');
-const { createServer } = require('http');
 const { Server } = require('socket.io');
 
 const sequelize = require('./config/connection');
@@ -37,14 +36,17 @@ app.use(session(sess));
 // Inform Express.js on which template engine to use
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
+app.set('views', './client/views');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, './client/public')));
 
 app.use(routes);
 
 sequelize.sync({ force: false }).then(() => {
-  const httpServer = app.listen(PORT, () => console.log('Now listening'));
+  const httpServer = app.listen(PORT, () =>
+    console.log('Now listening. PORT: ' + PORT),
+  );
   initSocket(new Server(httpServer));
 });

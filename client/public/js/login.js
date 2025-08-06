@@ -65,8 +65,11 @@ createAccountBtn.addEventListener('click', async function (event) {
       showAlert('Password must be 8 in length');
     } else if (validatorKey == 'not_unique') {
       showAlert('Username is already taken');
+    } else if (error.message) {
+      showAlert(error.message);
     } else {
-      console.log('Error');
+      showAlert('Something went wrong');
+      console.error(error);
     }
   }
 });

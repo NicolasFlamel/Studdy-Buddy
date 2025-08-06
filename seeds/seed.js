@@ -29,6 +29,7 @@ const seedDatabase = async () => {
     returning: true,
   });
 
+  console.log('\x1b[32m', 'Seed Completed');
   process.exit(0);
 };
 

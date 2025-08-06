@@ -41,7 +41,7 @@ const sendMessage = (event) => {
 const addMessage = (message, sender) => {
   const li = document.createElement('li');
   li.classList.add(sender, 'speech-bubble');
-  li.innerHTML = message;
+  li.innerText = message;
   messagesEl.appendChild(li);
   li.scrollIntoView();
 };

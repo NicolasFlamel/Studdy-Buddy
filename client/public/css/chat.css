@@ -66,25 +66,34 @@
 
 /* Own messages styling */
 #chat-window .messages li.self {
-  --messages-color: var(--button-color);
+  --messages-bg-color: var(--button-color);
   --message-text-color: white;
 }
 
 #chat-window .messages li.self::before {
-  --messages-color: var(--button-color);
+  --messages-bg-color: var(--button-color);
   --degree: 90deg;
   --bubble-scale: -1, 1;
 
   right: 3rem;
 }
 
+#chat-window .messages li.self .sender,
+#chat-window .messages li.system .sender {
+  right: 4.5rem;
+}
+
+#chat-window .messages li.buddy .sender {
+  left: 4.5rem;
+}
+
 /* Buddy's message styling */
 #chat-window .messages li.buddy {
-  --messages-color: var(--pencil-pink);
+  --messages-bg-color: var(--pencil-pink);
   --message-text-color: #2e2e2e;
 }
 #chat-window .messages li.buddy::before {
-  --messages-color: var(--pencil-pink);
+  --messages-bg-color: var(--pencil-pink);
   --degree: 90deg;
   --bubble-scale: 1, 1;
 
@@ -93,12 +102,12 @@
 
 /* System message styling */
 #chat-window .messages li.system {
-  --messages-color: #808080;
+  --messages-bg-color: #808080;
   --message-text-color: white;
 }
 
 #chat-window .messages li.system::before {
-  --messages-color: #808080;
+  --messages-bg-color: #808080;
   --degree: 90deg;
   --bubble-scale: -1, 1;
 
@@ -106,7 +115,7 @@
 }
 
 .speech-bubble {
-  background: var(--messages-color);
+  background: var(--messages-bg-color);
   filter: drop-shadow(-1px -1px 2px rgba(0, 0, 0, 0.1))
     drop-shadow(1px 2px 2px rgba(0, 0, 0, 0.15));
   margin: 1rem;
@@ -121,7 +130,7 @@
 
 .speech-bubble::before {
   border: 12.5px solid transparent;
-  border-top: 12.5px solid var(--messages-color);
+  border-top: 12.5px solid var(--messages-bg-color);
   border-bottom: 0;
   height: 0;
   width: 0;
@@ -133,4 +142,17 @@
   transform-origin: center;
   transform: scale(var(--bubble-scale)) rotate(90deg) skew(-25deg)
     translateY(1rem);
+}
+
+.speech-bubble .sender {
+  padding: 2px;
+  position: absolute;
+  bottom: -3rem;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+  color: var(--message-text-color);
+  background-color: var(--messages-bg-color);
+  border-radius: 3px;
 }

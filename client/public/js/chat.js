@@ -28,7 +28,7 @@ socket.auth = { chatId, userId, username };
 const sendMessage = (event) => {
   event.preventDefault();
 
-  addMessage(username + ': ' + inputEl.value, 'self');
+  addMessage(inputEl.value, 'self', username);
 
   socket.emit('chatMessage', {
     message: inputEl.value,
@@ -38,12 +38,26 @@ const sendMessage = (event) => {
   return false;
 };
 
-const addMessage = (message, sender) => {
-  const li = document.createElement('li');
-  li.classList.add(sender, 'speech-bubble');
-  li.innerText = message;
-  messagesEl.appendChild(li);
-  li.scrollIntoView();
+/**
+ *
+ * @param {string} message Message to display
+ * @param {('buddy' | 'self' | 'system', 'System')} sender Who is sending the message
+ * @param {string} username Username of sender
+ */
+const addMessage = (message, sender, username) => {
+  const liEl = document.createElement('li');
+  const pEl = document.createElement('p');
+
+  liEl.classList.add(sender, 'speech-bubble');
+  liEl.innerText = message;
+
+  pEl.innerText = username;
+  pEl.classList.add('sender');
+  liEl.append(pEl);
+
+  messagesEl.append(liEl);
+
+  liEl.scrollIntoView();
 };
 
 const editBuddyCard = (user) => {
@@ -59,31 +73,39 @@ const editBuddyCard = (user) => {
 };
 
 socket.on('chatMessage', (data) => {
-  addMessage(data.username + ': ' + data.message, 'buddy');
+  addMessage(data.message, 'buddy', data.username);
 });
 
 socket.on('userJoin', (data) => {
   editBuddyCard(data);
-  addMessage(data.username + ' just joined the chat!', 'system');
+  addMessage(data.username + ' just joined the chat!', 'system', 'System');
   socket.emit('userJoin', data);
 });
 
 socket.on('userLeave', (data) => {
   editBuddyCard('');
-  addMessage(data.username + ' has left the chat.', 'system');
+  addMessage(data.username + ' has left the chat.', 'system', 'System');
   if (isActive) {
     socket.disconnect();
-    addMessage('Page will redirect in a few seconds', 'system');
+    addMessage('Page will redirect in a few seconds', 'system', 'System');
     setTimeout(() => {
       document.location.replace('/');
     }, 5000);
   } else {
-    addMessage('If you wish to find another user, refresh the page', 'system');
+    addMessage(
+      'If you wish to find another user, refresh the page',
+      'system',
+      'System',
+    );
   }
 });
 
 socket.connect();
-addMessage("You have joined the chat as '" + username + "'.", 'system');
+addMessage(
+  "You have joined the chat as '" + username + "'.",
+  'system',
+  'System',
+);
 
 if (roomStatus == 'joined') {
   socket.emit('joinRoom');

@@ -64,10 +64,59 @@
   background-color: var(--pencil-pink);
 }
 
+/* Own messages styling */
 #chat-window .messages li.self {
-  background: white;
+  --messages-color: var(--button-color);
+  --message-text-color: white;
 }
 
+#chat-window .messages li.self::before {
+  --messages-color: var(--button-color);
+  --degree: 90deg;
+  --bubble-scale: -1, 1;
+
+  right: 3rem;
+}
+
+/* Buddy's message styling */
 #chat-window .messages li.buddy {
-  background: var(--pencil-pink);
+  --messages-color: var(--pencil-pink);
+  --message-text-color: #2e2e2e;
+}
+#chat-window .messages li.buddy::before {
+  --messages-color: var(--pencil-pink);
+  --degree: 90deg;
+  --bubble-scale: 1, 1;
+
+  left: 3rem;
+}
+
+.speech-bubble {
+  background: var(--messages-color);
+  filter: drop-shadow(-1px -1px 2px rgba(0, 0, 0, 0.1))
+    drop-shadow(1px 2px 2px rgba(0, 0, 0, 0.15));
+  margin: 1rem;
+  margin-bottom: 40px;
+  /* padding: 1.5rem 2rem; */
+  position: relative;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--message-text-color);
+}
+
+.speech-bubble::before {
+  border: 12.5px solid transparent;
+  border-top: 12.5px solid var(--messages-color);
+  border-bottom: 0;
+  height: 0;
+  width: 0;
+  border-top-width: 25px;
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: -25px;
+  transform-origin: center;
+  transform: scale(var(--bubble-scale)) rotate(90deg) skew(-25deg)
+    translateY(1rem);
 }

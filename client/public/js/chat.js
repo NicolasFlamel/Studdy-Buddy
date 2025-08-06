@@ -40,7 +40,7 @@ const sendMessage = (event) => {
 
 const addMessage = (message, user) => {
   const li = document.createElement('li');
-  li.classList.add(user);
+  li.classList.add(user, 'speech-bubble');
   li.innerHTML = message;
   messagesEl.appendChild(li);
   li.scrollIntoView();

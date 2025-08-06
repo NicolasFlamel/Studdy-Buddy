@@ -28,9 +28,18 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/assessment', withAuth, async (req, res) => {
+  const { userId } = req.session;
+
   try {
+    const userData = await User.findByPk(userId, {
+      include: [{ model: Score }],
+      nest: true,
+      raw: true,
+    });
+
     res.render('assessment', {
       loggedIn: req.session.loggedIn,
+      userScores: userData.score,
     });
   } catch (err) {
     res.status(500).json(err);

@@ -20,6 +20,9 @@ module.exports = {
         return null;
     }
   },
+  ifEquals: function (arg1, arg2, options) {
+    return arg1 === arg2 ? options.fn(this) : options.inverse(this);
+  },
   // used to place sections in main
   section: function (name, options) {
     if (!this._sections) this._sections = {};

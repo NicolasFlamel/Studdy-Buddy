@@ -91,6 +91,20 @@
   left: 3rem;
 }
 
+/* System message styling */
+#chat-window .messages li.system {
+  --messages-color: #808080;
+  --message-text-color: white;
+}
+
+#chat-window .messages li.system::before {
+  --messages-color: #808080;
+  --degree: 90deg;
+  --bubble-scale: -1, 1;
+
+  right: 3rem;
+}
+
 .speech-bubble {
   background: var(--messages-color);
   filter: drop-shadow(-1px -1px 2px rgba(0, 0, 0, 0.1))

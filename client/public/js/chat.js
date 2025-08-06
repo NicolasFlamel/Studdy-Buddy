@@ -38,9 +38,9 @@ const sendMessage = (event) => {
   return false;
 };
 
-const addMessage = (message, user) => {
+const addMessage = (message, sender) => {
   const li = document.createElement('li');
-  li.classList.add(user, 'speech-bubble');
+  li.classList.add(sender, 'speech-bubble');
   li.innerHTML = message;
   messagesEl.appendChild(li);
   li.scrollIntoView();
@@ -64,26 +64,26 @@ socket.on('chatMessage', (data) => {
 
 socket.on('userJoin', (data) => {
   editBuddyCard(data);
-  addMessage(data.username + ' just joined the chat!', 'buddy');
+  addMessage(data.username + ' just joined the chat!', 'system');
   socket.emit('userJoin', data);
 });
 
 socket.on('userLeave', (data) => {
   editBuddyCard('');
-  addMessage(data.username + ' has left the chat.', 'buddy');
+  addMessage(data.username + ' has left the chat.', 'system');
   if (isActive) {
     socket.disconnect();
-    addMessage('Page will redirect in a few seconds', 'buddy');
+    addMessage('Page will redirect in a few seconds', 'system');
     setTimeout(() => {
       document.location.replace('/');
     }, 5000);
   } else {
-    addMessage('If you wish to find another user, refresh the page', 'buddy');
+    addMessage('If you wish to find another user, refresh the page', 'system');
   }
 });
 
 socket.connect();
-addMessage("You have joined the chat as '" + username + "'.", 'self');
+addMessage("You have joined the chat as '" + username + "'.", 'system');
 
 if (roomStatus == 'joined') {
   socket.emit('joinRoom');

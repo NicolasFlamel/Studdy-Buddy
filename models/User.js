@@ -20,6 +20,9 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+      validate: {
+        not: { args: /admin|system/i, msg: 'Cannot be Admin or System' },
+      },
     },
     password: {
       type: DataTypes.STRING,

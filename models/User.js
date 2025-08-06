@@ -21,7 +21,10 @@ User.init(
       allowNull: false,
       unique: true,
       validate: {
-        not: { args: /admin|system/i, msg: 'Cannot be Admin or System' },
+        not: {
+          args: /admin|system/i,
+          msg: 'Username cannot be Admin or System',
+        },
       },
     },
     password: {

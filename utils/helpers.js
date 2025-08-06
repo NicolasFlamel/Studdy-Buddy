@@ -20,6 +20,12 @@ module.exports = {
         return null;
     }
   },
+  ifEquals: function (arg1, arg2, options) {
+    return arg1 === arg2 ? options.fn(this) : options.inverse(this);
+  },
+  isScoreChecked: function (arg1, arg2) {
+    return arg1 === arg2 ? 'checked' : null;
+  },
   // used to place sections in main
   section: function (name, options) {
     if (!this._sections) this._sections = {};

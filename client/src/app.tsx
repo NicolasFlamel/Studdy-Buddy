@@ -8,12 +8,8 @@ export const App = () => {
   return (
     <ThemeProvider defaultTheme={'system'} storageKey={'studdy-buddy-ui-theme'}>
       <QueryClientProvider client={queryClient}>
-        <RouterProviderWithContext />
+        <RouterProvider router={router} context={{ queryClient }} />
       </QueryClientProvider>
     </ThemeProvider>
   );
-};
-
-const RouterProviderWithContext = () => {
-  return <RouterProvider router={router} context={{ queryClient }} />;
 };

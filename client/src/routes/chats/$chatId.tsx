@@ -27,11 +27,9 @@ export const Route = createFileRoute('/chats/$chatId')({
   beforeLoad: async ({ context, location }) => {
     await protectRoute(context.queryClient, location);
   },
-  loader: async ({ abortController, params: { chatId } }) => {
+  loader: async ({ params: { chatId } }) => {
     try {
-      const response = await fetchChatMetadataWithId(chatId, {
-        signal: abortController.signal,
-      });
+      const response = await fetchChatMetadataWithId(chatId);
 
       if (!response.ok) {
         if (response.status === 404) throw notFound();

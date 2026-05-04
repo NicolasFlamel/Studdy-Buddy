@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: my-postgres
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD_PSQL}
+      POSTGRES_USER: ${DB_USER_PSQL}
+      POSTGRES_DB: ${DB_NAME_PSQL}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  # GUI for sql
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
+
+volumes:
+  postgres-data:

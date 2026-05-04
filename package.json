@@ -1,34 +1,35 @@
 {
-  "name": "develop",
+  "name": "@studdy-buddy/root",
   "version": "1.0.0",
   "description": "This is a group project created using Handlebars, CSS, and APIs. The frontend also uses Bootstrap for styling. Studdy Buddy is an application that pairs users looking to partner with a peer to work through a selected course topic, based on how they match up via a self ranking system",
-  "main": "server.js",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server",
+    "shared"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "seed": "node seeds/seed.js",
-    "dev": "nodemon server.js",
-    "prettier": "npx prettier --write ."
+    "start": "pnpm --filter server start",
+    "dev": "concurrently --names client,server -c green,blue \"pnpm:dev:client\" \"pnpm:dev:server\"",
+    "dev:client": "pnpm --filter client dev",
+    "dev:server": "pnpm --filter server dev",
+    "lint": "pnpm -r --parallel lint",
+    "format": "prettier --write ."
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^6.0.0",
-    "connect-session-sequelize": "^8.0.2",
-    "dotenv": "^17.2.1",
-    "express": "^4.21.2",
-    "express-handlebars": "^8.0.3",
-    "express-session": "^1.18.2",
-    "pg": "^8.16.3",
-    "pg-hstore": "^2.3.4",
-    "sequelize": "^6.37.7",
-    "socket.io": "^4.8.1"
+    "zod": "^4.3.6"
   },
   "devDependencies": {
-    "eslint": "^7.32.0",
-    "eslint-config-prettier": "^6.15.0",
-    "nodemon": "^3.1.10",
-    "prettier": "^3.6.2"
+    "concurrently": "^9.2.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
+    "prettier": "^3.8.3",
+    "typescript": "^5.9.3"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
   },
   "keywords": [],
   "repository": {

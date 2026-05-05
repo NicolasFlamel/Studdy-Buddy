@@ -1,13 +1,16 @@
 import { API } from '@/lib/api';
+import type { PostScheduleAPIReqBody } from '@/types/api';
 import type {
   ScoresFormType,
   SubjectEnumType,
-} from '@studdy-buddy/shared/schemas/scores';
-import type { CreateUserSchemaType } from '@studdy-buddy/shared/schemas/users';
+  CreateUserSchemaType,
+  EditScheduleSchemaType,
+} from '@studdy-buddy/shared/schemas';
 
 const apiPost = (url: string, options?: RequestInit) =>
   fetch(url, {
     headers: { 'Content-Type': 'application/json' },
+    method: 'POST',
     ...options,
   });
 
@@ -15,20 +18,15 @@ const apiPost = (url: string, options?: RequestInit) =>
 
 export const registerPost = ({ username, password }: CreateUserSchemaType) =>
   apiPost(API.auth.register(), {
-    method: 'POST',
     body: JSON.stringify({ username, password }),
   });
 
 export const loginPost = ({ username, password }: CreateUserSchemaType) =>
   apiPost(API.auth.login(), {
-    method: 'POST',
     body: JSON.stringify({ username, password }),
   });
 
-export const logoutPost = () =>
-  apiPost(API.auth.logout(), {
-    method: 'POST',
-  });
+export const logoutPost = () => apiPost(API.auth.logout(), {});
 
 export const fetchAuthMe = (options?: RequestInit) =>
   fetch(API.auth.me(), options);
@@ -37,6 +35,8 @@ export const fetchAuthMe = (options?: RequestInit) =>
 
 export const fetchUserMe = (options?: RequestInit) =>
   fetch(API.users.me(), options);
+export const fetchUserProfile = (userId: string, options?: RequestInit) =>
+  fetch(API.users.byId(userId), options);
 
 // Scores
 
@@ -45,7 +45,6 @@ export const fetchAssessment = (options?: RequestInit) =>
 
 export const postAssessment = (scores: ScoresFormType) =>
   apiPost(API.scores.base(), {
-    method: 'POST',
     body: JSON.stringify(scores),
   });
 
@@ -57,12 +56,37 @@ export const fetchChatMetadataWithId = (id: string, options?: RequestInit) =>
 type CreateChatDataType = { subject: SubjectEnumType };
 export const createChat = (data: CreateChatDataType) =>
   apiPost(API.chats.base(), {
-    method: 'POST',
     body: JSON.stringify(data),
   });
 
 export const findChat = (options?: RequestInit) =>
   apiPost(API.chats.match(), {
     ...options,
-    method: 'POST',
+  });
+
+// Schedules
+
+export const createSchedule = (
+  data: PostScheduleAPIReqBody,
+  options?: RequestInit,
+) =>
+  apiPost(API.schedules.base(), {
+    body: JSON.stringify(data),
+    ...options,
+  });
+
+export const editSchedule = (
+  data: EditScheduleSchemaType,
+  options?: RequestInit,
+) =>
+  apiPost(API.schedules.byId(data.id), {
+    body: JSON.stringify(data),
+    ...options,
+  });
+
+export const deleteSchedule = (scheduleId: string, options?: RequestInit) =>
+  fetch(API.schedules.byId(scheduleId), {
+    headers: { 'Content-Type': 'application/json' },
+    method: 'DELETE',
+    ...options,
   });

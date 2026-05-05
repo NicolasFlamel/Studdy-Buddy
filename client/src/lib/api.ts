@@ -21,4 +21,9 @@ export const API = {
     metadataById: (id: string) => `${API.chats.base()}/${id}/metadata` as const,
     match: () => `${API.chats.base()}/match` as const,
   },
+  schedules: {
+    base: () => `${BASE}/schedules` as const,
+    byId: (scheduleId: string) =>
+      `${API.schedules.base()}/${scheduleId}` as const,
+  },
 } as const;

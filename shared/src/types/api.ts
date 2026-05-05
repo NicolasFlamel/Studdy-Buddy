@@ -1,6 +1,8 @@
 import { ChatsSchemaType, GetChatMetadataSchemaType } from '../schemas/chats';
+import { UserWithScheduleSchemaDTOType } from '../schemas/relations';
 import {
   CreateScoresSchemaType,
+  SchedulesSchemaType,
   ScoresSchemaType,
   UsersSchemaType,
 } from '../schemas';
@@ -11,6 +13,7 @@ export type ApiResult<T> = ApiSuccess<T> | ApiError;
 
 // users route
 export type UserMeAPIData = Omit<UsersSchemaType, 'password'>;
+export type GetUserProfileByIdData = UserWithScheduleSchemaDTOType;
 
 // scores route
 export type GetScoresData = ScoresSchemaType[];
@@ -25,3 +28,7 @@ export type MatchPostChatsData = Pick<ChatsSchemaType, 'id'>;
 export type RegisterData = Omit<UsersSchemaType, 'password'>;
 export type LoginData = Omit<UsersSchemaType, 'password'>;
 export type LogoutData = { success: boolean };
+
+// schedule routes
+export type PostScheduleData = SchedulesSchemaType;
+export type DeleteScheduleData = undefined;

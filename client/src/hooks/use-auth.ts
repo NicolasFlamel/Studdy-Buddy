@@ -1,7 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { authOptions, useAuthQuery } from './auth.query';
 import { router } from '@/lib/router';
-import type { ResAuthUser } from '@/types/response';
+import type { ResAuthUser } from '@/types/api';
 
 type AuthState =
   | { user: null; status: 'PENDING' }

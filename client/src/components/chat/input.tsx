@@ -5,6 +5,7 @@ import { ChatFormSchema, type ChatFormSchemaType } from '@/schemas/forms';
 import { Field, FieldLabel } from '../ui/field';
 import { Textarea } from '../ui/textarea';
 import { useChat } from '@/context/chat-provider';
+import type { KeyboardEventHandler } from 'react';
 
 export const ChatInput = () => {
   const { sendMessage } = useChat();
@@ -16,6 +17,14 @@ export const ChatInput = () => {
   const onSubmit: SubmitHandler<ChatFormSchemaType> = async (values) => {
     await sendMessage(values.message);
     form.reset();
+  };
+
+  const handleOnKeyUp: KeyboardEventHandler<HTMLTextAreaElement> = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+
+      void form.handleSubmit(onSubmit)();
+    }
   };
 
   return (
@@ -35,6 +44,7 @@ export const ChatInput = () => {
             </FieldLabel>
             <Textarea
               autoFocus
+              {...field}
               id={field.name}
               autoComplete="off"
               disabled={formState.isSubmitting}
@@ -42,7 +52,7 @@ export const ChatInput = () => {
               className={
                 'resize-none max-h-40 min-h-4 h-full border-none focus-visible:ring-0'
               }
-              {...field}
+              onKeyDown={handleOnKeyUp}
             />
           </Field>
         )}

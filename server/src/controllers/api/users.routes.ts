@@ -5,7 +5,7 @@ import { reply } from '@/utils/helpers';
 import { getUserByIdPublic } from '@/db/queries/users';
 import {
   ApiResult,
-  GetUserByIdData,
+  GetUserProfileByIdData,
   UserMeAPIData,
 } from '@studdy-buddy/shared/src/types/api';
 import { uuidSchema } from '@shared/schemas';
@@ -38,7 +38,7 @@ userRouter.get('/me', withAuth, async (req: Request, res: GetResType) => {
   }
 });
 
-type GetUserResType = Response<ApiResult<GetUserByIdData>>;
+type GetUserResType = Response<ApiResult<GetUserProfileByIdData>>;
 userRouter.get('/:userId', async (req: Request, res: GetUserResType) => {
   const { userId } = req.params;
 

@@ -12,13 +12,13 @@ import {
   LogoutData,
   RegisterData,
 } from '@shared/types/api';
+import { z } from 'zod';
 
 export const authRouter = Router();
 
 type RegisterResType = Response<ApiResult<RegisterData>>;
 authRouter.post('/register', async (req: Request, res: RegisterResType) => {
-  const { username, password } = req.body;
-  const parse = CreateUserSchema.safeParse({ username, password });
+  const parse = CreateUserSchema.safeParse(req.body);
 
   if (!parse.success) {
     return res.status(400).json(reply(null, parse.error.message));
@@ -50,11 +50,11 @@ authRouter.post('/register', async (req: Request, res: RegisterResType) => {
 
 type LoginResType = Response<ApiResult<LoginData>>;
 authRouter.post('/login', async (req: Request, res: LoginResType) => {
-  const { username, password } = req.body;
-
-  const parse = LoginSchema.safeParse({ username, password });
+  const parse = LoginSchema.safeParse(req.body);
 
   if (!parse.success) {
+    const zodError = z.flattenError(parse.error).fieldErrors;
+    req.log.warn({ zodError }, 'Incorrect form data');
     return res.status(400).json(reply(null, parse.error.message));
   }
 
@@ -67,23 +67,26 @@ authRouter.post('/login', async (req: Request, res: LoginResType) => {
       return res.status(401).json(reply(null, 'Incorrect Username/Password'));
     }
 
-    const validPassword = checkPassword(validData.password, userData.password);
+    const isValidPassword = await checkPassword(
+      validData.password,
+      userData.password,
+    );
 
-    if (!validPassword) {
+    if (!isValidPassword) {
       return res.status(401).json(reply(null, 'Incorrect Username/Password'));
     }
 
     await new Promise<void>((resolve, reject) => {
-      req.session.regenerate((err) => (err ? reject(err) : resolve()));
+      req.session.regenerate((err: Error) => (err ? reject(err) : resolve()));
     });
 
     req.session.userId = userData.id;
 
     await new Promise<void>((resolve, reject) => {
-      req.session.save((err) => (err ? reject(err) : resolve()));
+      req.session.save((err: Error) => (err ? reject(err) : resolve()));
     });
 
-    const { password: removedPassword, ...data } = userData;
+    const { password: _removedPassword, ...data } = userData;
 
     return res.status(200).json(reply(data));
   } catch (error) {
@@ -96,7 +99,7 @@ type LogoutResType = Response<ApiResult<LogoutData>>;
 authRouter.post('/logout', async (req: Request, res: LogoutResType) => {
   try {
     await new Promise<void>((resolve, reject) => {
-      req.session.destroy((err) => (err ? reject(err) : resolve()));
+      req.session.destroy((err: Error) => (err ? reject(err) : resolve()));
     });
 
     return res.status(200).json(reply({ success: true }));

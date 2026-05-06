@@ -1,3 +1,4 @@
+import { z } from 'zod';
 import { db } from '@/db';
 import { Request, Response, Router } from 'express';
 import { schedules } from '@/db/schema';
@@ -19,23 +20,21 @@ export const scheduleRouter = Router();
 type PostResType = Response<ApiResult<PostScheduleData>>;
 scheduleRouter.post('/', withAuth, async (req: Request, res: PostResType) => {
   const { userId } = req.session;
-  const { date } = req.body;
 
   if (!userId) {
     req.log.error('No userId in withAuth route.');
     return res.status(401).json(reply(null, 'You are not logged in.'));
-  } else if (!date) {
-    return res.status(400).json(reply(null, 'Missing date in body.'));
   }
 
   const { success, error, data } = CreateScheduleSchema.safeParse({
-    date,
+    ...req.body,
     userId,
   });
 
   if (!success) {
+    const zodError = z.flattenError(error).fieldErrors;
     req.log.warn(
-      { error, userId, date },
+      { zodError, userId },
       'Parse schema failed for creating schedule.',
     );
     return res.status(400).json(reply(null, 'Incorrect data format.'));

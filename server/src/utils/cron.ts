@@ -28,7 +28,7 @@ export const queueChatDeletion = (chatId: string, userId: string) => {
 export const cancelChatDeletion = (chatId: string) => {
   if (pendingDeletions.has(chatId)) {
     logger.info({ chatId }, 'Deletion cancelled.');
-    clearTimeout(pendingDeletions.get(chatId)!);
+    clearTimeout(pendingDeletions.get(chatId));
     pendingDeletions.delete(chatId);
   }
 };

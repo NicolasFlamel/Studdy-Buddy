@@ -1,4 +1,4 @@
-import z from 'zod';
+import { z } from 'zod';
 import { db } from '@/db';
 import { Request, Response, Router } from 'express';
 import { withAuth } from '@/utils/auth';
@@ -64,7 +64,7 @@ chatRouter.get(
 type PostResType = Response<ApiResult<PostChatsData>>;
 chatRouter.post('/', withAuth, async (req: Request, res: PostResType) => {
   const { userId } = req.session;
-  const subjectParse = SubjectEnumSchema.safeParse(req.body.subject);
+  const subjectParse = SubjectEnumSchema.safeParse(req.body?.subject);
 
   if (!userId) {
     req.log.error({ userId }, 'UserId empty after passing withAuth');

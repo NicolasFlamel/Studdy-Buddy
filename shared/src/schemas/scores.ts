@@ -1,4 +1,4 @@
-import z from 'zod';
+import { z } from 'zod';
 import { UsersSchema } from './users';
 
 export const SUBJECTS = [

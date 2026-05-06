@@ -1,14 +1,12 @@
-import z from 'zod';
+import { z } from 'zod';
 import { Request, Response, Router } from 'express';
 import { withAuth } from '@/utils/auth';
 import { reply } from '@/utils/helpers';
-import { scores } from '@/db/schema';
 import { getScoresByUserId, upsertScoreByUserId } from '@/db/queries/scores';
 import { ApiResult, GetScoresData, PostScoresData } from '@shared/types/api';
 import {
   CreateScoresSchema,
   ScoresForm,
-  ScoresFormType,
   ScoresSchema,
   SUBJECTS,
 } from '@shared/schemas';
@@ -46,18 +44,11 @@ scoreRouter.post('/', withAuth, async (req: Request, res: PostResType) => {
   const { userId } = req.session;
 
   try {
-    const scores = {
-      vanillaJs: req.body.vanillaJs,
-      mySql: req.body.mySql,
-      nodeJs: req.body.nodeJs,
-      express: req.body.express,
-      oop: req.body.oop,
-    };
-    const formParse = ScoresForm.safeParse(scores);
+    const formParse = ScoresForm.safeParse(req.body);
 
     if (!formParse.success) {
       const zodError = z.flattenError(formParse.error).fieldErrors;
-      res.log.warn({ userId, scores, zodError }, 'Incorrect form data');
+      req.log.warn({ userId, zodError }, 'Incorrect form data');
       return res.status(400).json(reply(null, formParse.error.message));
     }
 

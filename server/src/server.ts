@@ -6,7 +6,7 @@ import { ENV } from './utils/env';
 import { logger } from './utils/logger';
 import { appSetup } from './utils/setup';
 
-const init = async () => {
+const init = () => {
   const app = express();
   const httpServer = createServer(app);
 

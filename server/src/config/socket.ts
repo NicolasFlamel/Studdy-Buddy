@@ -42,7 +42,7 @@ export const initSocket = (httpServer: HttpServerType) => {
   io.engine.use(sessionMiddleware);
   io.use(ioAuthMiddleware);
 
-  io.on('connection', async function (socket) {
+  io.on('connection', function (socket) {
     logger.info(socket.data, 'user connected');
     // socket middleware
     socket.use(([event, ..._args], next) => {
@@ -74,7 +74,7 @@ export const initSocket = (httpServer: HttpServerType) => {
         socket.data.chatId = chatId;
         socket.data.isChatOwner = chat.userId === userId;
 
-        socket.join(chatId);
+        await socket.join(chatId);
         socket.broadcast.to(chatId).emit('userJoined', { userId, username });
 
         logger.info(

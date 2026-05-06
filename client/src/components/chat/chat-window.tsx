@@ -1,4 +1,4 @@
-import dayjs from 'dayjs';
+import { format, parseISO } from 'date-fns';
 import { cn } from '@/lib/utils';
 import { useEffect, useRef } from 'react';
 import { useChat } from '@/context/chat-provider';
@@ -28,10 +28,7 @@ const Messages = () => {
   if (!user) throw new Error('User data should be present.');
 
   const formatTimestamp = (rawTimestamp: string) => {
-    const day = dayjs(rawTimestamp);
-    const formattedDay = day.format('hh:mm a');
-
-    return formattedDay;
+    return format(parseISO(rawTimestamp), 'hh:mm a');
   };
 
   return (

@@ -75,7 +75,9 @@ export const initSocket = (httpServer: HttpServerType) => {
         socket.data.isChatOwner = chat.userId === userId;
 
         await socket.join(chatId);
-        socket.broadcast.to(chatId).emit('userJoined', { userId, username });
+        socket.broadcast
+          .to(chatId)
+          .emit('userJoined', { id: userId, username });
 
         logger.info(
           { socketData: socket.data, userId, chatId },

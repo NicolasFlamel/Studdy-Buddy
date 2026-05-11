@@ -1,35 +1,39 @@
 import type {
   ClientMessagePayload,
   MessagePayloadServer,
+  ServerToClientEvents,
 } from '@studdy-buddy/shared/types/socket';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useSocket } from './socket-provider';
+import type { UserType } from '@/components/chat/types';
 
+type ConnectedUserType = UserType | null;
 interface ChatContextType {
   isConnected: boolean;
   messages: MessagePayloadServer[];
   sendMessage: (message: string) => Promise<void>;
-  connectedUsername: string;
-  updateConnectedUsername: (newUsername: string) => void;
+  connectedUser: ConnectedUserType;
 }
 
 const ChatContext = createContext<ChatContextType | undefined>(undefined);
 
+interface ChatProviderProps {
+  children: React.ReactNode;
+  chatId: string;
+  initialConnectedUser: ConnectedUserType | undefined;
+}
 export function ChatProvider({
   children,
   chatId,
-}: {
-  children: React.ReactNode;
-  chatId: string;
-}) {
+  initialConnectedUser = null,
+}: ChatProviderProps) {
   const socket = useSocket();
   const [isConnected, setIsConnected] = useState(socket.connected);
-  const [connectedUsername, setConnectedUsername] = useState('');
+  const [connectedUser, setConnectedUser] =
+    useState<ConnectedUserType>(initialConnectedUser);
   const [messages, setMessages] = useState<MessagePayloadServer[]>([]);
 
   useEffect(() => {
-    socket.emit('joinRoom', { chatId });
-
     const onConnect = () => {
       setIsConnected(true);
       socket.emit('joinRoom', { chatId });
@@ -39,37 +43,34 @@ export function ChatProvider({
       setIsConnected(false);
     };
 
-    socket.on('connect', onConnect);
-    socket.on('disconnect', onDisconnect);
-
-    return () => {
-      socket.off('connect', onConnect);
-      socket.off('disconnect', onDisconnect);
-      socket.emit('leaveRoom', { chatId });
-    };
-  }, [chatId, socket]);
-
-  useEffect(() => {
-    const onConnect = () => {
-      setIsConnected(true);
-    };
-
-    const onDisconnect = () => {
-      setIsConnected(false);
-    };
-
-    const onChatMessage = (value: (typeof messages)[number]) => {
+    const onChatMessage: ServerToClientEvents['newMessage'] = (
+      value: (typeof messages)[number],
+    ) => {
       setMessages((previous) => [...previous, value]);
     };
+
+    const onUserJoined: ServerToClientEvents['userJoined'] = (user) => {
+      setConnectedUser(user);
+    };
+
+    const onUserLeft: ServerToClientEvents['userLeft'] = () => {
+      setConnectedUser(null);
+    };
+
+    socket.emit('joinRoom', { chatId });
 
     socket.on('connect', onConnect);
     socket.on('disconnect', onDisconnect);
     socket.on('newMessage', onChatMessage);
+    socket.on('userJoined', onUserJoined);
+    socket.on('userLeft', onUserLeft);
 
     return () => {
       socket.off('connect', onConnect);
       socket.off('disconnect', onDisconnect);
       socket.off('newMessage', onChatMessage);
+
+      socket.emit('leaveRoom', { chatId });
     };
   }, [chatId, socket]);
 
@@ -81,16 +82,11 @@ export function ChatProvider({
     socket.emit('sendMessage', data);
   };
 
-  const updateConnectedUsername = (newUsername: string) => {
-    setConnectedUsername(newUsername);
-  };
-
   const value: ChatContextType = {
     isConnected,
     messages,
     sendMessage,
-    connectedUsername,
-    updateConnectedUsername,
+    connectedUser,
   };
 
   return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>;

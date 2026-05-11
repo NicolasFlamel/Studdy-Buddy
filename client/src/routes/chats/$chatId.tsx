@@ -2,6 +2,7 @@ import { fetchChatMetadataWithId } from '@/api/fetch';
 import { Chat } from '@/components/chat/chat-page';
 import { ChatNotFound } from '@/components/chat/not-found';
 import { ChatProvider } from '@/context/chat-provider';
+import { useAuthQuery } from '@/hooks/auth.query';
 import { protectRoute } from '@/lib/before-load';
 import { isExpectedLoaderError } from '@/lib/loader';
 import type {
@@ -11,14 +12,25 @@ import type {
 import { createFileRoute, notFound } from '@tanstack/react-router';
 
 const ChatPage = () => {
+  const { data } = useAuthQuery();
   const { chatId } = Route.useParams();
   const { chat } = Route.useLoaderData();
 
+  if (!data) throw new Error('Data is suppose to exist.');
+
+  const connectedUser = getConnectedUser(chat, data.id);
+
   return (
-    <ChatProvider chatId={chatId}>
+    <ChatProvider chatId={chatId} initialConnectedUser={connectedUser}>
       <Chat subject={chat.subject} />
     </ChatProvider>
   );
+};
+
+const getConnectedUser = (chat: GetChatMetadataData, userId: string) => {
+  if (userId !== chat.host.id) return chat.host;
+  else if (chat.claimer && userId !== chat.claimer.id) return chat.claimer;
+  return null;
 };
 
 type ResType = ApiResult<GetChatMetadataData>;

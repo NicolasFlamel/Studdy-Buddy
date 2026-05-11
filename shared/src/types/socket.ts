@@ -2,7 +2,7 @@ type UserIdType = string;
 type ChatIdType = string;
 
 export type ServerToClientEvents = {
-  userJoined: (data: { username: string; userId: UserIdType }) => void;
+  userJoined: (data: { username: string; id: UserIdType }) => void;
   newMessage: (data: MessagePayloadServer) => void;
   userLeft: (data: { userId: UserIdType; username: string }) => void;
   error: (data: { message: string; code?: string }) => void;

@@ -2,7 +2,6 @@ import { createFileRoute } from '@tanstack/react-router';
 import { ProfileNotFoundPage } from '@/components/profiles/not-found';
 import { ProfileContainer } from '@/components/profiles/container';
 import { profilesLoader } from '@/components/profiles/loaders';
-import { AddSchedule } from '@/components/profiles/add-schedule';
 import { ProfileTitle } from '@/components/profiles/title';
 import { ProfileScheduleTable } from '@/components/profiles/schedule-table';
 
@@ -12,7 +11,6 @@ const UserProfilePage = () => {
   return (
     <ProfileContainer>
       <ProfileTitle username={user.username} />
-      <AddSchedule />
       <ProfileScheduleTable
         isOwner={false}
         schedule={user.schedules}

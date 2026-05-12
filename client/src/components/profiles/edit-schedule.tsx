@@ -1,5 +1,5 @@
 import { useState, type ComponentProps, type ReactNode } from 'react';
-import { useCreateScheduleMutation } from '@/hooks/schedule.mutation';
+import { useScheduleUpdateMutation } from '@/hooks/schedule.mutation';
 import { ScheduleFields } from './schedule-fields';
 import { type SubmitHandler } from 'react-hook-form';
 import { format } from 'date-fns';
@@ -19,10 +19,17 @@ import { ScheduleForm } from './schedule-form';
 import { Spinner } from '../ui/spinner';
 
 type OnSubmitType = SubmitHandler<CreateScheduleFormSchemaType>;
-interface AddScheduleProps extends ComponentProps<typeof DialogTrigger> {
+interface EditScheduleProps extends ComponentProps<typeof DialogTrigger> {
+  scheduleId: string;
   children: ReactNode;
+  values: CreateScheduleFormSchemaType;
 }
-export const AddSchedule = ({ children, ...props }: AddScheduleProps) => {
+export const EditSchedule = ({
+  scheduleId,
+  children,
+  values,
+  ...props
+}: EditScheduleProps) => {
   const [open, setOpen] = useState(false);
 
   const handleCloseDialog = () => {
@@ -32,22 +39,32 @@ export const AddSchedule = ({ children, ...props }: AddScheduleProps) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger {...props}>{children}</DialogTrigger>
-      <AddScheduleDialogContent onSuccess={handleCloseDialog} />
+      <EditScheduleDialogContent
+        scheduleId={scheduleId}
+        onSuccess={handleCloseDialog}
+        values={values}
+      />
     </Dialog>
   );
 };
 
 type Props = {
+  scheduleId: string;
   onSuccess: () => void;
+  values: CreateScheduleFormSchemaType;
 };
-const AddScheduleDialogContent = ({ onSuccess }: Props) => {
-  const mutation = useCreateScheduleMutation();
+const EditScheduleDialogContent = ({
+  scheduleId,
+  values,
+  onSuccess,
+}: Props) => {
+  const mutation = useScheduleUpdateMutation();
 
   const onSubmit: OnSubmitType = async (values) => {
     const dateTime = `${format(values.date, 'yyyy-MM-dd')}T${values.time}`;
     const newSchedule = new Date(dateTime);
 
-    mutation.mutate({ date: newSchedule }, { onSuccess });
+    mutation.mutate({ id: scheduleId, date: newSchedule }, { onSuccess });
   };
 
   const onInvalid = (errors: unknown) => {
@@ -57,27 +74,28 @@ const AddScheduleDialogContent = ({ onSuccess }: Props) => {
   return (
     <DialogContent>
       <DialogHeader>
-        <DialogTitle>Add Schedule</DialogTitle>
+        <DialogTitle>Edit Schedule</DialogTitle>
         <DialogDescription>
-          Add a new schedule by selecting a date and time.
+          Edit a schedule by selecting a date and time.
         </DialogDescription>
       </DialogHeader>
       <ScheduleForm
-        id={'add-schedule-form'}
+        id={'edit-schedule-form'}
         onSubmit={onSubmit}
         onInvalid={onInvalid}
+        defaultValues={values}
       >
         <ScheduleFields />
       </ScheduleForm>
       <DialogFooter>
         <Button
           type="submit"
-          form="add-schedule-form"
+          form="edit-schedule-form"
           disabled={mutation.isPending}
           className="w-fit"
         >
           {mutation.isPending && <Spinner />}
-          {mutation.isPending ? 'Adding schedule...' : 'Add schedule'}
+          {mutation.isPending ? 'Editing schedule...' : 'Edit schedule'}
         </Button>
         <DialogClose asChild>
           <Button variant="outline">Cancel</Button>

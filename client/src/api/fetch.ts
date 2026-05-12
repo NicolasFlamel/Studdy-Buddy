@@ -1,11 +1,16 @@
 import { API } from '@/lib/api';
-import type { PostScheduleAPIReqBody } from '@/types/api';
+import type { PostScheduleAPIReqBody, Serialized } from '@/types/api';
 import type {
   ScoresFormType,
   SubjectEnumType,
   CreateUserSchemaType,
   EditScheduleSchemaType,
 } from '@studdy-buddy/shared/schemas';
+import type {
+  ApiResult,
+  GetUserPublicByIdData,
+  GetUserSchedules,
+} from '@studdy-buddy/shared/types/api';
 
 const apiPost = (url: string, options?: RequestInit) =>
   fetch(url, {
@@ -35,6 +40,7 @@ export const fetchAuthMe = (options?: RequestInit) =>
 
 export const fetchUserMe = (options?: RequestInit) =>
   fetch(API.users.me(), options);
+export type FetchProfilesResType = ApiResult<GetUserPublicByIdData>;
 export const fetchUserProfile = (userId: string, options?: RequestInit) =>
   fetch(API.users.byId(userId), options);
 
@@ -65,6 +71,10 @@ export const findChat = (options?: RequestInit) =>
   });
 
 // Schedules
+
+export type FetchUserSchedulesResType = ApiResult<Serialized<GetUserSchedules>>;
+export const fetchUserSchedules = (userId: string, options?: RequestInit) =>
+  fetch(API.users.schedule(userId), options);
 
 export const createSchedule = (
   data: PostScheduleAPIReqBody,

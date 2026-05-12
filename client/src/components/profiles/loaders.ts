@@ -1,62 +1,54 @@
 import { fetchUserProfile } from '@/api/fetch';
+import { scheduleOptions } from '@/hooks/schedule.query';
 import { getUserFromClient } from '@/lib/before-load';
 import { isExpectedLoaderError } from '@/lib/loader';
 import type { RouterContext } from '@/lib/router';
 import type {
   ApiResult,
-  GetUserProfileByIdData,
+  GetUserPublicByIdData,
 } from '@studdy-buddy/shared/types/api';
+import type { QueryClient } from '@tanstack/react-query';
 import { notFound } from '@tanstack/react-router';
 
-type FetchUserProfileResType = ApiResult<GetUserProfileByIdData>;
+type FetchUserPublicResType = ApiResult<GetUserPublicByIdData>;
 export const profileLoader = async ({
   context,
 }: {
   context: RouterContext;
 }) => {
+  const { queryClient } = context;
   const user = await getUserFromClient(context.queryClient);
 
   if (!user) {
     throw new Error('Missing user');
   }
 
-  try {
-    const response = await fetchUserProfile(user?.id);
-
-    if (!response.ok) {
-      if (response.status === 404) throw notFound();
-      console.error(response);
-      throw new Error(`Request failed with status ${response.status}`);
-    }
-
-    const { data, error }: FetchUserProfileResType = await response.json();
-
-    if (error) throw error;
-
-    return { user: data };
-  } catch (error) {
-    if (isExpectedLoaderError(error)) throw error;
-    console.error(error);
-    throw error;
-  }
+  return profilesLoader({ userId: user.id, queryClient });
 };
 
-type FetchProfilesResType = ApiResult<GetUserProfileByIdData>;
-export const profilesLoader = async ({ userId }: { userId: string }) => {
+type ProfilesLoaderArgs = { userId: string; queryClient: QueryClient };
+export const profilesLoader = async ({
+  userId,
+  queryClient,
+}: ProfilesLoaderArgs) => {
   try {
-    const response = await fetchUserProfile(userId);
+    const queryOptions = scheduleOptions(userId);
+    const schedulesPromise = queryClient.ensureQueryData(queryOptions);
+    const userRes = await fetchUserProfile(userId);
 
-    if (!response.ok) {
-      if (response.status === 404) throw notFound();
-      console.error(response);
-      throw new Error(`Request failed with status ${response.status}`);
+    if (!userRes.ok) {
+      if (userRes.status === 404) throw notFound();
+      console.error(userRes);
+      throw new Error(`Request failed with status ${userRes.status}`);
     }
 
-    const { data, error }: FetchProfilesResType = await response.json();
+    const userAPIRes: FetchUserPublicResType = await userRes.json();
 
-    if (error) throw error;
+    if (userAPIRes.error) throw userAPIRes.error;
 
-    return { user: data };
+    await schedulesPromise;
+
+    return { user: userAPIRes.data };
   } catch (error) {
     if (isExpectedLoaderError(error)) throw error;
     console.error(error);

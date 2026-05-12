@@ -7,9 +7,12 @@ import type {
   PostScheduleData,
 } from '@studdy-buddy/shared/types/api';
 import type { EditScheduleSchemaType } from '@studdy-buddy/shared/schemas';
+import { queryClient } from '@/lib/query';
+import { queryKeys } from './query-keys';
+import { scheduleOptions } from './schedule.query';
 
 type PostScheduleResType = ApiResult<PostScheduleData>;
-export const useScheduleMutation = () => {
+export const useCreateScheduleMutation = () => {
   return useMutation({
     mutationFn: async (schedule: PostScheduleAPIReqBody) => {
       const res = await createSchedule(schedule);
@@ -22,8 +25,19 @@ export const useScheduleMutation = () => {
 
       return data;
     },
+    onSuccess: async (data) => {
+      const queryKey = scheduleOptions(data.userId).queryKey;
+      const prev = queryClient.getQueryData(queryKey) || [];
+
+      queryClient.setQueryData(queryKey, [...prev, data]);
+    },
     onError: (error) => {
       console.error(error);
+    },
+    onSettled: async () => {
+      const queryKey = queryKeys.schedules.all;
+
+      await queryClient.invalidateQueries({ queryKey: queryKey });
     },
   });
 };
@@ -44,6 +58,11 @@ export const useScheduleUpdateMutation = () => {
     onError: (error) => {
       console.error(error);
     },
+    onSettled: async () => {
+      const queryKey = queryKeys.schedules.all;
+
+      await queryClient.invalidateQueries({ queryKey: queryKey });
+    },
   });
 };
 
@@ -55,12 +74,26 @@ export const useScheduleDeleteMutation = () => {
 
       if (!res.ok) throw res;
 
-      const { error }: DeleteScheduleResType = await res.json();
+      const { error, data }: DeleteScheduleResType = await res.json();
 
       if (error) throw error;
+
+      return data;
+    },
+    onSuccess: async (data) => {
+      const queryKey = scheduleOptions(data.userId).queryKey;
+      const staleData = queryClient.getQueryData(queryKey) ?? [];
+      const newData = staleData.filter((schedule) => schedule.id !== data.id);
+
+      queryClient.setQueryData(queryKey, newData);
     },
     onError: (error) => {
       console.error(error);
+    },
+    onSettled: async () => {
+      const queryKey = queryKeys.schedules.all;
+
+      await queryClient.invalidateQueries({ queryKey: queryKey });
     },
   });
 };

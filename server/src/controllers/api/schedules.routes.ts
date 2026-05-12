@@ -112,9 +112,14 @@ scheduleRouter.delete(
     }
 
     try {
-      await deleteSchedule({ id: scheduleId, userId });
+      const [deleted] = await deleteSchedule({
+        id: scheduleId,
+        userId,
+      }).returning();
 
-      return res.status(200).json(reply(undefined));
+      if (!deleted) throw new Error('No data was returned after deleting.');
+
+      return res.status(200).json(reply(deleted));
     } catch (error) {
       req.log.error({ error, userId, scheduleId });
       return res.status(500).json(reply(null, 'Something went wrong.'));

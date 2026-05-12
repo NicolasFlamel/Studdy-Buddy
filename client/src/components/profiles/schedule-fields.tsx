@@ -14,7 +14,7 @@ import { useState } from 'react';
 import { TimeInput } from '../ui/time';
 
 export const ScheduleFields = () => {
-  const { control } = useFormContext();
+  const { control } = useFormContext<CreateScheduleFormSchemaType>();
 
   return (
     <FieldGroup className="max-w-xs flex-row">

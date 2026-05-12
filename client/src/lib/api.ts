@@ -3,8 +3,9 @@ const BASE = '/api' as const;
 export const API = {
   users: {
     base: () => `${BASE}/users` as const,
-    byId: (id: string) => `${API.users.base()}/${id}` as const,
+    byId: (userId: string) => `${API.users.base()}/${userId}` as const,
     me: () => `${API.users.base()}/me` as const,
+    schedule: (userId: string) => `${API.users.byId(userId)}/schedules`,
   },
   auth: {
     base: () => `${BASE}/auth` as const,

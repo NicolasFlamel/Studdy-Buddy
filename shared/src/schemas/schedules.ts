@@ -12,4 +12,4 @@ export type CreateScheduleSchemaType = z.infer<typeof CreateScheduleSchema>;
 export const CreateScheduleSchema = SchedulesSchema.omit({ id: true });
 
 export type EditScheduleSchemaType = z.infer<typeof EditScheduleSchema>;
-export const EditScheduleSchema = SchedulesSchema.extend({});
+export const EditScheduleSchema = SchedulesSchema.omit({ userId: true });

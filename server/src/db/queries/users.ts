@@ -5,34 +5,44 @@ import { chats, users } from '../schema';
 
 const saltRounds = 10;
 
-export const getUserById = (id: (typeof users.$inferSelect)['id']) => {
+type UserSelectType = typeof users.$inferSelect;
+type UserIdType = UserSelectType['id'];
+
+export const getUserById = (id: UserIdType) => {
   return db.query.users.findFirst({
     where: { id },
   });
 };
 
-export const getUserByUsername = (
-  username: (typeof users.$inferSelect)['username'],
-) => {
+export const getUserByUsername = (username: UserSelectType['username']) => {
   return db.query.users.findFirst({
     where: { username },
   });
 };
 
-export const getUserByIdPublic = (id: (typeof users.$inferSelect)['id']) => {
+export const getUserByIdPublic = (id: UserIdType) => {
   return db.query.users.findFirst({
     where: { id },
     columns: { id: true, username: true, isActive: true },
   });
 };
 
-export const getUserByIdWithChat = (id: (typeof users.$inferSelect)['id']) => {
+export const getUserByIdWithChat = (id: UserIdType) => {
   return db
     .select()
     .from(users)
     .leftJoin(chats, eq(chats.userId, users.id))
     .where(eq(users.id, id));
 };
+
+export const getUserWithSchedule = (userId: UserIdType) =>
+  db.query.users.findFirst({
+    where: { id: userId },
+    columns: { id: true, isActive: true, username: true },
+    with: {
+      schedules: { orderBy: { date: 'asc' } },
+    },
+  });
 
 export const createUser = async (data: typeof users.$inferInsert) => {
   const hashedPassword = await bcrypt.hash(data.password, saltRounds);
@@ -52,7 +62,7 @@ export const createUser = async (data: typeof users.$inferInsert) => {
 };
 
 export const updateUser = async (
-  id: (typeof users.$inferSelect)['id'],
+  id: UserIdType,
   data: Partial<typeof users.$inferInsert>,
 ) => {
   if (data.password) {

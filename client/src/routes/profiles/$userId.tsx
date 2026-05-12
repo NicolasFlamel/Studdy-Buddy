@@ -13,7 +13,7 @@ const UserProfilePage = () => {
       <ProfileTitle username={user.username} />
       <ProfileScheduleTable
         isOwner={false}
-        schedule={user.schedules}
+        userId={user.id}
         className={'max-w-lg w-full'}
       />
     </ProfileContainer>
@@ -34,6 +34,7 @@ export const Route = createFileRoute('/profiles/$userId')({
     ],
   }),
   component: UserProfilePage,
-  loader: async ({ params: { userId } }) => await profilesLoader({ userId }),
+  loader: async ({ context, params: { userId } }) =>
+    await profilesLoader({ userId, queryClient: context.queryClient }),
   notFoundComponent: ProfileNotFoundPage,
 });

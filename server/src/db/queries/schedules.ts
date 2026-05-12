@@ -10,6 +10,9 @@ type UpdateScheduleType = Partial<typeof schedules.$inferInsert>;
 const scheduleIdAndUserIdMatch = ({ id, userId }: ConditionMatch) =>
   and(eq(schedules.id, id), eq(schedules.userId, userId));
 
+export const getUserSchedule = (userId: typeof schedules.$inferSelect.userId) =>
+  db.query.schedules.findMany({ where: { userId }, orderBy: { date: 'asc' } });
+
 export const updateSchedule = (
   data: UpdateScheduleType,
   condition: ConditionMatch,

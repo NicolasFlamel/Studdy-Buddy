@@ -37,7 +37,7 @@ const RouteComponent = () => {
     search();
 
     return () => {
-      controller.abort();
+      controller.abort('Component unmounted');
       clearTimeout(timeout);
     };
   }, [navigate]);

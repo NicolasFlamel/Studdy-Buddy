@@ -4,6 +4,10 @@ import type {
   ServerToClientEvents,
 } from '@studdy-buddy/shared/types/socket';
 
-export const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io({
+export type ClientSocketType = Socket<
+  ServerToClientEvents,
+  ClientToServerEvents
+>;
+export const socket: ClientSocketType = io({
   autoConnect: false,
 });

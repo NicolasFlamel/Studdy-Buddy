@@ -5,7 +5,7 @@ import { ChatFormSchema, type ChatFormSchemaType } from '@/schemas/forms';
 import { Field, FieldLabel } from '../ui/field';
 import { Textarea } from '../ui/textarea';
 import { useChat } from '@/context/chat-provider';
-import type { KeyboardEventHandler } from 'react';
+import { type KeyboardEventHandler } from 'react';
 
 export const ChatInput = () => {
   const { sendMessage } = useChat();
@@ -16,7 +16,9 @@ export const ChatInput = () => {
 
   const onSubmit: SubmitHandler<ChatFormSchemaType> = async (values) => {
     await sendMessage(values.message);
+
     form.reset();
+    form.setFocus('message');
   };
 
   const handleOnKeyUp: KeyboardEventHandler<HTMLTextAreaElement> = (e) => {

@@ -9,16 +9,23 @@ export const ChatHeader = ({ subject }: Props) => {
   const { connectedUser } = useChat();
 
   return (
-    <section className={'bg-card rounded-md shadow-md text-center p-8'}>
+    <section
+      className={
+        'bg-card border rounded-md text-center p-4 shadow-sm flex flex-col gap-2'
+      }
+    >
       <h2>
-        {'Currently Connected Buddy: '}
+        {'Studdy Buddy Subject: '}
+        <span className={'bg-secondary rounded-md p-1'}>{subject}</span>
+      </h2>
+      <p className={'text-muted-foreground'}>
+        {'Connected Buddy: '}
         {connectedUser && (
           <UserLink userId={connectedUser.id}>
             {connectedUser.username}
           </UserLink>
         )}
-      </h2>
-      <h2>{`Studdy Buddy Subject: ${subject}`}</h2>
+      </p>
     </section>
   );
 };

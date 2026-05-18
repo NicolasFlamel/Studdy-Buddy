@@ -1,11 +1,10 @@
 import { format, parseISO } from 'date-fns';
 import { cn } from '@/lib/utils';
-import { useEffect, useRef, type ReactNode } from 'react';
+import { useEffect, useRef } from 'react';
 import { useChat } from '@/context/chat-provider';
 import { useAuth } from '@/hooks/use-auth';
 import { ChatInput } from './input';
 import type {
-  MessagePayloadServer,
   SystemMessageType,
   UserMessageType,
 } from '@studdy-buddy/shared/types/socket';
@@ -39,13 +38,9 @@ const Messages = () => {
     >
       {messages.map((message) =>
         message.type === 'system' ? (
-          <SystemMessage key={message.id} message={message}>
-            <Timestamp timestamp={message.timestamp} />
-          </SystemMessage>
+          <SystemMessage key={message.id} message={message} />
         ) : (
-          <UserMessage key={message.id} message={message} userId={user.id}>
-            <Timestamp timestamp={message.timestamp} />
-          </UserMessage>
+          <UserMessage key={message.id} message={message} userId={user.id} />
         ),
       )}
     </ul>
@@ -55,59 +50,57 @@ const Messages = () => {
 type UserMessageProps = {
   userId: string;
   message: UserMessageType;
-  children: ReactNode;
 };
-const UserMessage = ({ userId, message, children }: UserMessageProps) => {
+const UserMessage = ({ userId, message }: UserMessageProps) => {
   const isSelf = userId === message.userId;
 
   return (
     <li
       className={cn(
-        'flex flex-col max-w-3/4',
-        isSelf ? 'ml-auto *:ml-auto' : 'mr-auto',
+        'flex flex-col max-w-3/4 gap-1',
+        isSelf ? 'ml-auto' : 'mr-auto',
       )}
     >
-      <strong>{message.username}</strong>
+      <section
+        className={cn('flex gap-2 text-sm', isSelf ? 'ml-auto' : 'mr-auto')}
+      >
+        <strong>{message.username}</strong>
+        <Timestamp timestamp={message.timestamp} />
+      </section>
       <p
         className={cn(
-          'p-4 rounded-md shadow-sm',
+          'p-4 shadow-sm rounded-md',
           isSelf
-            ? 'bg-card text-card-foreground'
-            : 'bg-accent text-accent-foreground',
+            ? 'bg-primary text-primary-foreground rounded-tr-none ml-auto'
+            : 'bg-secondary text-secondary-foreground rounded-tl-none mr-auto',
         )}
       >
         {message.text}
       </p>
-      {children}
     </li>
   );
 };
 
-type SystemMessageProps = { message: SystemMessageType; children: ReactNode };
-const SystemMessage = ({ message, children }: SystemMessageProps) => {
+type SystemMessageProps = { message: SystemMessageType };
+const SystemMessage = ({ message }: SystemMessageProps) => {
   return (
     <li className={'flex flex-col text-center'}>
-      <strong className={'text-accent-foreground'}>SYSTEM</strong>
-      <p
-        className={'p-4 rounded-md shadow-sm bg-accent text-accent-foreground'}
-      >
-        {message.text}
-      </p>
-      {children}
+      <section className={'flex gap-2 text-center text-sm m-auto'}>
+        <strong>SYSTEM</strong>
+        <Timestamp timestamp={message.timestamp} />
+      </section>
+      <p className={'text-muted-foreground'}>{message.text}</p>
     </li>
   );
 };
 
-type TimestampProps = {
-  timestamp: MessagePayloadServer['timestamp'];
-};
-const Timestamp = ({ timestamp }: TimestampProps) => {
+const Timestamp = ({ timestamp }: { timestamp: string }) => {
   const formatTimestamp = (rawTimestamp: string) => {
     return format(parseISO(rawTimestamp), 'hh:mm a');
   };
 
   return (
-    <time dateTime={timestamp} className={'text-sm'}>
+    <time dateTime={timestamp} className={'text-sm text-muted-foreground'}>
       {formatTimestamp(timestamp)}
     </time>
   );

@@ -95,7 +95,7 @@ export const AssessmentForm = ({ initialValues }: AssessmentFormProps) => {
             </React.Fragment>
           );
         })}
-        <Button type={'submit'}>
+        <Button type={'submit'} className={'max-w-lg w-full self-center'}>
           {isLoading && <Spinner />}
           {isLoading ? 'Updating...' : 'Update'}
         </Button>

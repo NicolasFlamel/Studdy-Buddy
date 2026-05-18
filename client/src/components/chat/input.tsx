@@ -3,9 +3,9 @@ import { Controller, useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ChatFormSchema, type ChatFormSchemaType } from '@/schemas/forms';
 import { Field, FieldLabel } from '../ui/field';
-import { Textarea } from '../ui/textarea';
 import { useChat } from '@/context/chat-provider';
-import { type KeyboardEventHandler } from 'react';
+import { Input } from '../ui/input';
+import { SendIcon } from 'lucide-react';
 
 export const ChatInput = () => {
   const { sendMessage } = useChat();
@@ -21,21 +21,8 @@ export const ChatInput = () => {
     form.setFocus('message');
   };
 
-  const handleOnKeyUp: KeyboardEventHandler<HTMLTextAreaElement> = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-
-      void form.handleSubmit(onSubmit)();
-    }
-  };
-
   return (
-    <form
-      onSubmit={form.handleSubmit(onSubmit)}
-      className={
-        'flex gap-4 items-end bg-card border border-input shadow-xs rounded-2xl p-4'
-      }
-    >
+    <form onSubmit={form.handleSubmit(onSubmit)} className={'flex gap-4 p-2'}>
       <Controller
         name={'message'}
         control={form.control}
@@ -44,26 +31,22 @@ export const ChatInput = () => {
             <FieldLabel htmlFor={field.name} className={'sr-only'}>
               Message
             </FieldLabel>
-            <Textarea
+            <Input
               autoFocus
               {...field}
               id={field.name}
               autoComplete="off"
               disabled={formState.isSubmitting}
               placeholder={'Message...'}
-              className={
-                'resize-none max-h-40 min-h-4 h-full border-none focus-visible:ring-0'
-              }
-              onKeyDown={handleOnKeyUp}
+              className={'h-full bg-input/30'}
             />
           </Field>
         )}
       />
-      <Field orientation={'horizontal'} className={'w-fit'}>
-        <Button type={'submit'} disabled={!form.formState.isValid}>
-          Send
-        </Button>
-      </Field>
+      <Button type={'submit'} size={'icon'} disabled={!form.formState.isValid}>
+        <span className={'sr-only'}>Send</span>
+        <SendIcon className={'size-4'} />
+      </Button>
     </form>
   );
 };

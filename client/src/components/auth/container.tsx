@@ -11,7 +11,7 @@ export const AuthContainer = ({
       <section
         className={cn(
           'absolute left-1/2 top-1/2 -translate-1/2',
-          'container text-center p-4 max-w-md bg-accent rounded-md flex flex-col gap-4',
+          'container text-center p-4 max-w-md bg-card rounded-md flex flex-col gap-4',
           className,
         )}
         {...props}

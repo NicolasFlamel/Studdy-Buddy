@@ -3,7 +3,13 @@ import { Link } from '@tanstack/react-router';
 import { useLogout } from '@/hooks/logout.mutation';
 import { useAuth } from '@/hooks/use-auth';
 import { ModeToggle } from '../mode-toggle';
-import { GlassesIcon } from 'lucide-react';
+import {
+  FileTextIcon,
+  GlassesIcon,
+  HouseIcon,
+  LogOutIcon,
+  UserIcon,
+} from 'lucide-react';
 import type { ComponentProps } from 'react';
 
 type VariantType = ComponentProps<typeof Button>['variant'];
@@ -31,22 +37,30 @@ export const Header = () => {
         <section className={'flex flex-wrap gap-2 items-center'}>
           <Button asChild variant={HEADER_BTN_VARIANT}>
             <Link to="/" className={'text-center'}>
+              <HouseIcon className="size-4" />
               Home
             </Link>
           </Button>
           {user ? (
             <>
               <Button asChild variant={HEADER_BTN_VARIANT}>
-                <Link to="/profile">My Profile</Link>
+                <Link to="/profile">
+                  <UserIcon className="size-4" />
+                  My Profile
+                </Link>
               </Button>
               <Button asChild variant={HEADER_BTN_VARIANT}>
-                <Link to="/assessment">Update assessments</Link>
+                <Link to="/assessment">
+                  <FileTextIcon className="size-4" />
+                  Update assessments
+                </Link>
               </Button>
               <Button
                 variant={HEADER_BTN_VARIANT}
                 onClick={handleLogout}
                 disabled={logoutMutation.isPending}
               >
+                <LogOutIcon className="size-4" />
                 Logout
               </Button>
             </>

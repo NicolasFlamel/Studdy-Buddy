@@ -11,7 +11,7 @@ export const ChatHeader = ({ subject }: Props) => {
   return (
     <section
       className={
-        'bg-card border rounded-md text-center p-4 shadow-sm flex flex-col gap-2'
+        'flex flex-col gap-2 p-4 border border-border rounded-md text-center'
       }
     >
       <h2>

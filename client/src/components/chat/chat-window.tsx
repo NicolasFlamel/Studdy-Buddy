@@ -8,6 +8,7 @@ import type {
   SystemMessageType,
   UserMessageType,
 } from '@studdy-buddy/shared/types/socket';
+import { ScrollArea } from '../ui/scroll-area';
 
 export const ChatWindow = () => {
   return (
@@ -21,29 +22,39 @@ export const ChatWindow = () => {
 const Messages = () => {
   const { user } = useAuth();
   const { messages } = useChat();
-  const ulRef = useRef<HTMLUListElement>(null);
+  const chatContainerRef = useRef<HTMLUListElement>(null);
+
+  const scrollToBottom = () => {
+    chatContainerRef.current?.scrollIntoView(false);
+  };
 
   useEffect(() => {
-    if (!ulRef.current) return;
+    scrollToBottom();
+  }, []);
 
-    ulRef.current.scrollTo({ top: ulRef.current.scrollHeight });
+  useEffect(() => {
+    scrollToBottom();
   }, [messages]);
 
   if (!user) throw new Error('User data should be present.');
 
   return (
-    <ul
-      ref={ulRef}
-      className={'grow flex flex-col gap-8 px-4 max-h-screen overflow-auto'}
-    >
-      {messages.map((message) =>
-        message.type === 'system' ? (
-          <SystemMessage key={message.id} message={message} />
-        ) : (
-          <UserMessage key={message.id} message={message} userId={user.id} />
-        ),
+    <ScrollArea
+      className={cn(
+        'grow overflow-hidden',
+        'p-4 border border-border rounded-md',
       )}
-    </ul>
+    >
+      <ul ref={chatContainerRef} className={cn('flex flex-col gap-8')}>
+        {messages.map((message) =>
+          message.type === 'system' ? (
+            <SystemMessage key={message.id} message={message} />
+          ) : (
+            <UserMessage key={message.id} message={message} userId={user.id} />
+          ),
+        )}
+      </ul>
+    </ScrollArea>
   );
 };
 

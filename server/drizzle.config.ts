@@ -9,4 +9,5 @@ export default defineConfig({
   dbCredentials: {
     url: ENV.DATABASE_URL,
   },
+  schemaFilter: ['public'],
 });

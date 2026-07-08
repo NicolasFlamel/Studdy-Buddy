@@ -29,7 +29,7 @@ export const Header = () => {
 
   return (
     <header>
-      <nav className="nav flex flex-wrap justify-between p-4 shadow-md border-b border-muted rounded-b-md">
+      <nav className="nav flex flex-wrap justify-between p-4 bg-card text-card-foreground border border-border">
         <div className={'flex flex-wrap gap-2 self-center'}>
           <p className={'text-2xl font-bold'}>Studdy Buddy</p>
           <GlassesIcon className={'size-8'} />

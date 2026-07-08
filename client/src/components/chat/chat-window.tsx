@@ -42,7 +42,7 @@ const Messages = () => {
     <ScrollArea
       className={cn(
         'grow overflow-hidden',
-        'p-4 border border-border rounded-md',
+        'bg-card text-card-foreground p-4 border border-border rounded-md',
       )}
     >
       <ul ref={chatContainerRef} className={cn('flex flex-col gap-8')}>
@@ -83,7 +83,7 @@ const UserMessage = ({ userId, message }: UserMessageProps) => {
           'p-4 shadow-sm rounded-md',
           isSelf
             ? 'bg-primary text-primary-foreground rounded-tr-none ml-auto'
-            : 'bg-secondary text-secondary-foreground rounded-tl-none mr-auto',
+            : 'bg-muted text-muted-foreground rounded-tl-none mr-auto',
         )}
       >
         {message.text}

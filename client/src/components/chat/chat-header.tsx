@@ -11,12 +11,12 @@ export const ChatHeader = ({ subject }: Props) => {
   return (
     <section
       className={
-        'flex flex-col gap-2 p-4 border border-border rounded-md text-center'
+        'flex flex-col gap-2 p-4 bg-card text-card-foreground border border-border rounded-md text-center'
       }
     >
       <h2>
         {'Studdy Buddy Subject: '}
-        <span className={'bg-secondary rounded-md p-1'}>{subject}</span>
+        <span className={'bg-secondary rounded-md py-1 px-2'}>{subject}</span>
       </h2>
       <p className={'text-muted-foreground'}>
         {'Connected Buddy: '}

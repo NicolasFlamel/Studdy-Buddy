@@ -38,7 +38,7 @@ export const ChatInput = () => {
               autoComplete="off"
               disabled={formState.isSubmitting}
               placeholder={'Message...'}
-              className={'h-full bg-input/30'}
+              className={'h-full border border-border bg-input'}
             />
           </Field>
         )}

@@ -1,4 +1,4 @@
 import path from 'path';
 
-export const ROOT = path.resolve(__dirname, '../../../');
-export const CLIENT_DIST = path.join(ROOT, 'client', 'dist');
+export const CLIENT_DIST =
+  process.env.CLIENT_DIST ?? path.resolve(process.cwd(), 'client/dist');

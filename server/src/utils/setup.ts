@@ -7,6 +7,7 @@ import { useExpressPino } from '@/utils/logger';
 
 export const appSetup = (app: ExpressType) => {
   app.use(useExpressPino);
+  app.set('trust proxy', 1);
   app.use(sessionMiddleware);
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));

@@ -29,7 +29,10 @@ export const useCreateScheduleMutation = () => {
       const queryKey = scheduleOptions(data.userId).queryKey;
       const prev = queryClient.getQueryData(queryKey) || [];
 
-      queryClient.setQueryData(queryKey, [...prev, data]);
+      queryClient.setQueryData(queryKey, [
+        ...prev,
+        { ...data, date: data.date.toISOString() },
+      ]);
     },
     onError: (error) => {
       console.error(error);

@@ -1,5 +1,8 @@
-import { ChatsSchemaType, GetChatMetadataSchemaType } from '../schemas/chats';
-import {
+import type {
+  ChatsSchemaType,
+  GetChatMetadataSchemaType,
+} from '../schemas/chats';
+import type {
   CreateScoresSchemaType,
   SchedulesSchemaType,
   ScoresSchemaType,

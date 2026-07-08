@@ -1,1 +1,3 @@
 *.md
+dist
+routeTree.gen.ts

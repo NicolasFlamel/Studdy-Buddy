@@ -1,0 +1,18 @@
+packages:
+  - client
+  - server
+  - shared
+
+catalog:
+  zod: ^4.4.3
+
+onlyBuiltDependencies:
+  - '@swc/core'
+  - bcrypt
+  - esbuild
+  - msw
+
+overrides:
+  express-rate-limit@>=8.2.0 <8.2.2: '>=8.2.2'
+  flatted@<3.4.0: '>=3.4.0'
+  hono@<4.12.7: '>=4.12.7'

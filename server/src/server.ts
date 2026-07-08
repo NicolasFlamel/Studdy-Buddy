@@ -19,7 +19,7 @@ const init = () => {
   // run migrations before starting server
   // await migrate(db, { migrationsFolder: './drizzle' });
   httpServer.listen(port, () => {
-    logger.info(`Now listening. PORT: ${port} 🚀`);
+    logger.info(`Now listening. PORT: ${port}`);
   });
 };
 
